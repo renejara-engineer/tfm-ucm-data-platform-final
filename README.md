@@ -2,7 +2,7 @@
 # 📌 TFM — Diseño e implementación de un sistema ETL automatizado para la integración y análisis de datos abiertos de contratación pública
 
 **Universidad Complutense de Madrid (UCM)**  
-**Máster en Data Science e Inteligencia Artificial**  
+**Máster de Formación Permanente en Data Science, Big Data & Business Analytics**  
 **Trabajo Fin de Máster (TFM)**  
 
 **Autor:** Rene Jara Balboa  
