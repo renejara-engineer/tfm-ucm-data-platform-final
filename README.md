@@ -171,8 +171,8 @@ orquestación externa.
 #### Paso 1 --- Clon limpio
 
 ``` bash
-git clone https://github.com/renejara-engineer/tfm-ucm-data-platform.git
-cd tfm-ucm-data-platform
+git clone https://github.com/renejara-engineer/tfm-ucm-data-platform-final.git
+cd tfm-ucm-data-platform-final
 ```
 
 #### Paso 2 --- Garantizar estado cero
