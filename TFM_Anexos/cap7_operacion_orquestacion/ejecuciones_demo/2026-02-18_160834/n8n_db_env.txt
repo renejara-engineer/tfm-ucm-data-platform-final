@@ -1,3 +1,5 @@
+# Credenciales removidas por seguridad (REDACTED)
+
 POSTGRES_DB=n8n
-POSTGRES_PASSWORD=demo_n8n_db_2026
+POSTGRES_PASSWORD=REDACTED
 POSTGRES_USER=n8n
