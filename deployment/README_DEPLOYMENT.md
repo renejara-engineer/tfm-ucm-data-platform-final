@@ -2,7 +2,7 @@
 # Deployment — ChileCompra Data Platform (RELEASE / DEMO)
 
 Universidad Complutense de Madrid (UCM)  
-Máster en Data Science e Inteligencia Artificial  
+Máster de Formación Permanente en DATA SCIENCE, BIG DATA & BUSINESS ANALYTICS  
 TFM — Anexo Digital Reproducible  
 
 ---
@@ -155,7 +155,8 @@ Este comportamiento es intencional y forma parte del diseño técnico.
 Este directorio:
 
 - No contiene datos históricos masivos.
-- No contiene credenciales versionadas.
+- No contiene credenciales reales. Incluye únicamente valores DEMO en .env.demo.example para
+  ejecución local reproducible (deben cambiarse si se despliega fuera del entorno local)..
 - No modifica la arquitectura del sistema.
 - No altera el esquema del Data Warehouse.
 

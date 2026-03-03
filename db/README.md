@@ -1,7 +1,7 @@
 
 # TFM — Diseño e implementación de un sistema ETL automatizado para la integración y análisis de datos abiertos de contratación pública
 
-**Trabajo Fin de Máster — Máster en Data Science e Inteligencia Artificial**
+**Trabajo Fin de Máster — Máster de Formación Permanente en DATA SCIENCE, BIG DATA & BUSINESS ANALYTICS**
 
 ---
 
