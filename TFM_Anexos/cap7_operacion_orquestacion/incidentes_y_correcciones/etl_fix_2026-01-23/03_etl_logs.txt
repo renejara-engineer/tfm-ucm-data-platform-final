@@ -1,0 +1,5 @@
+etl-1  | INFO:     Started server process [1]
+etl-1  | INFO:     Waiting for application startup.
+etl-1  | INFO:     Application startup complete.
+etl-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+etl-1  | INFO:     172.19.0.1:42140 - "GET /health HTTP/1.1" 200 OK

@@ -1,0 +1,8 @@
+        metric        |      valor       
+----------------------+------------------
+ LIC_cnt              |           147755
+ LIC_monto_adjudicado | 4392264989332.00
+ OC_cnt               |           324419
+ OC_monto_total       | 1420517520409.36
+(4 rows)
+

@@ -1,0 +1,10 @@
+{
+  "tables_total": 32,
+  "relationships_total": 18,
+  "measures_total": 64,
+  "partitions_total": 32,
+  "source_class_counts": {
+    "CSV": 14,
+    "POSTGRES_DW": 9
+  }
+}

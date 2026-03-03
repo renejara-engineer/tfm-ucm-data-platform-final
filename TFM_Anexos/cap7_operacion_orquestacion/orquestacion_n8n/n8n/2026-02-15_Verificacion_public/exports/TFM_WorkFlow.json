@@ -1,0 +1,438 @@
+{
+  "name": "TFM_ver6.0",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        4200,
+        920
+      ],
+      "id": "83b663e0-ccab-4994-995c-a8ca3c1d40da"
+    },
+    {
+      "parameters": {
+        "jsCode": "const period = '2025-10';\nif (!/^\\d{4}-\\d{2}$/.test(period)) throw new Error('Periodo invalido (YYYY-MM)');\n\nreturn [{ json: {\n  mode: 'MANUAL',\n  period,\n  dlRoot: '/data/ChileCompraDL',\n  inboxLic: `/data/ChileCompraDL/02_INBOX/LIC/${period}`,\n  inboxOc: `/data/ChileCompraDL/02_INBOX/OC/${period}`,\n  composeBase: '/tfm/docker-compose.yml',\n  composeN8n: '/tfm/docker-compose.n8n.yml'\n} }];"
+      },
+      "name": "Config MANUAL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4440,
+        920
+      ],
+      "id": "fb54ea51-8284-4ab4-ae9d-fef05188b260"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Garantiza exactamente 1 contexto valido antes de ejecutar shell\nif (!items || items.length === 0) throw new Error('[FATAL] No llegó ningún item a Normalize Context');\nif (items.length > 1) throw new Error('[FATAL] Llegaron múltiples items. Debe operar con 1 solo contexto.');\n\nconst ctx = items[0].json;\nconst required = ['mode','period','dlRoot','inboxLic','inboxOc','composeBase','composeN8n'];\n\nfor (const k of required) if (!ctx[k]) throw new Error(`[FATAL] Falta campo obligatorio: ${k}`);\nif (!/^\\d{4}-\\d{2}$/.test(ctx.period)) throw new Error(`[FATAL] Periodo inválido: ${ctx.period}`);\n\nreturn [{ json: { ...ctx, _normalized: true, _ts: new Date().toISOString() } }];"
+      },
+      "name": "Normalize Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4820,
+        920
+      ],
+      "id": "c3384a9d-40af-4521-8ada-fdad2fd517f0"
+    },
+    {
+      "parameters": {
+        "executeOnce": "={{ true }}",
+        "command": "=/bin/sh -lc '\nset -e\n\nMODE=\"{{ $json.mode }}\"\nPERIOD=\"{{ $json.period }}\"\nDLROOT=\"{{ $json.dlRoot }}\"\nLIC_DIR=\"{{ $json.inboxLic }}\"\nOC_DIR=\"{{ $json.inboxOc }}\"\nBASE=\"{{ $json.composeBase }}\"\nN8N=\"{{ $json.composeN8n }}\"\n\n# logs -> stderr\necho \"[PRE] mode=$MODE\" >&2\necho \"[PRE] period=$PERIOD\" >&2\necho \"[PRE] dlRoot=$DLROOT\" >&2\necho \"[PRE] LIC_DIR=$LIC_DIR\" >&2\necho \"[PRE] OC_DIR=$OC_DIR\" >&2\necho \"[PRE] composeBase=$BASE\" >&2\necho \"[PRE] composeN8n=$N8N\" >&2\n\n# validaciones infra\n[ -S /var/run/docker.sock ] || { echo \"[ERROR] docker.sock no existe\" >&2; exit 10; }\ncommand -v docker >/dev/null 2>&1 || { echo \"[ERROR] docker CLI no disponible\" >&2; exit 11; }\ndocker version >/dev/null 2>&1 || { echo \"[ERROR] docker CLI no conecta al daemon\" >&2; exit 12; }\n\n[ -d \"$DLROOT\" ] || { echo \"[ERROR] DataLake mount no existe: $DLROOT\" >&2; exit 13; }\n[ -f \"$BASE\" ]  || { echo \"[ERROR] No existe compose base: $BASE\" >&2; exit 14; }\n[ -f \"$N8N\" ]   || { echo \"[ERROR] No existe compose n8n: $N8N\" >&2; exit 15; }\n\necho \"[OK] Preflight completo\" >&2\n\n# stdout JSON puro\nprintf \"{\\\"mode\\\":\\\"%s\\\",\\\"period\\\":\\\"%s\\\",\\\"dlRoot\\\":\\\"%s\\\",\\\"inboxLic\\\":\\\"%s\\\",\\\"inboxOc\\\":\\\"%s\\\",\\\"composeBase\\\":\\\"%s\\\",\\\"composeN8n\\\":\\\"%s\\\"}\\n\" \\\n  \"$MODE\" \"$PERIOD\" \"$DLROOT\" \"$LIC_DIR\" \"$OC_DIR\" \"$BASE\" \"$N8N\"\n'\n"
+      },
+      "name": "Preflight",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        5020,
+        920
+      ],
+      "id": "11b4a9e7-18d6-47dc-9fbd-85b29ea3e9c7"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = items[0].json.stdout;\nif (!s) throw new Error('[FATAL] Extract Context: stdout vacío (no hay JSON)');\nlet ctx;\ntry { ctx = JSON.parse(s); } catch (e) { throw new Error('[FATAL] Extract Context: stdout no es JSON válido'); }\nreturn [{ json: { ...ctx } }];"
+      },
+      "name": "Extract Context (after Preflight)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5220,
+        920
+      ],
+      "id": "56668533-bd40-406c-951d-30ad8e1b2ddb"
+    },
+    {
+      "parameters": {
+        "executeOnce": "={{ true }}",
+        "command": "=/bin/sh -lc '\nset -u\n\nMODE=\"{{ $json.mode }}\"\nPERIOD=\"{{ $json.period }}\"\nDLROOT=\"{{ $json.dlRoot }}\"\nLIC_DIR=\"{{ $json.inboxLic }}\"\nOC_DIR=\"{{ $json.inboxOc }}\"\nBASE=\"{{ $json.composeBase }}\"\nN8N=\"{{ $json.composeN8n }}\"\n\nLIC_FILE=\"$LIC_DIR/LIC_${PERIOD}.csv\"\nOC_FILE=\"$OC_DIR/OC_${PERIOD}.csv\"\n\n# decision default\nDECISION=\"RUN\"\nREASON=\"OK\"\n\n# --- Hard checks (si fallan => NO_OP, pero sin error rojo) ---\nif [ ! -d \"$LIC_DIR\" ] || [ ! -d \"$OC_DIR\" ]; then\n  DECISION=\"NO_OP\"; REASON=\"MISSING_DIR\";\nfi\n\nif [ \"$DECISION\" = \"RUN\" ] && { [ ! -f \"$LIC_FILE\" ] || [ ! -f \"$OC_FILE\" ]; }; then\n  DECISION=\"NO_OP\"; REASON=\"MISSING_FILE\";\nfi\n\n# --- Métricas y gates soft (solo si existe todo) ---\nLIC_COLS=0\nOC_SIZE_BYTES=0\nOC_LINES=0\n\nif [ \"$DECISION\" = \"RUN\" ]; then\n  LIC_HDR=$(head -n 1 \"$LIC_FILE\" 2>/dev/null || true)\n  LIC_SEMI=$(printf \"%s\" \"$LIC_HDR\" | tr -cd \";\" | wc -c | tr -d \" \")\n  LIC_COMMA=$(printf \"%s\" \"$LIC_HDR\" | tr -cd \",\" | wc -c | tr -d \" \")\n\n  if [ \"$LIC_SEMI\" -gt \"$LIC_COMMA\" ]; then\n    LIC_COLS=$(printf \"%s\" \"$LIC_HDR\" | awk -F\";\" \"{print NF}\")\n  else\n    LIC_COLS=$(printf \"%s\" \"$LIC_HDR\" | awk -F\",\" \"{print NF}\")\n  fi\n\n  # Gate LIC (2025-01)\n  if [ \"$LIC_COLS\" -lt 50 ]; then\n    DECISION=\"NO_OP\"; REASON=\"LIC_SCHEMA_ANOM\";\n  fi\n\n  # Gate OC (2025-03)\n  OC_SIZE_BYTES=$(wc -c < \"$OC_FILE\" 2>/dev/null | tr -d \" \" || echo 0)\n  OC_LINES=$(wc -l < \"$OC_FILE\" 2>/dev/null | tr -d \" \" || echo 0)\n\n  if [ \"$DECISION\" = \"RUN\" ] && [ \"$OC_SIZE_BYTES\" -lt 5000000 ]; then\n    DECISION=\"NO_OP\"; REASON=\"OC_SIZE_ANOM\";\n  fi\n\n  if [ \"$DECISION\" = \"RUN\" ] && [ \"$OC_LINES\" -lt 1000 ]; then\n    DECISION=\"NO_OP\"; REASON=\"OC_LINES_ANOM\";\n  fi\nfi\n\n# logs -> stderr\necho \"[INBOX] period=$PERIOD decision=$DECISION reason=$REASON\" >&2\necho \"[INBOX] LIC_FILE=$LIC_FILE\" >&2\necho \"[INBOX] OC_FILE=$OC_FILE\" >&2\necho \"[INBOX] LIC_COLS=$LIC_COLS\" >&2\necho \"[INBOX] OC_SIZE_BYTES=$OC_SIZE_BYTES\" >&2\necho \"[INBOX] OC_LINES=$OC_LINES\" >&2\n\n# stdout JSON puro\nprintf \"{\\\"mode\\\":\\\"%s\\\",\\\"period\\\":\\\"%s\\\",\\\"dlRoot\\\":\\\"%s\\\",\\\"inboxLic\\\":\\\"%s\\\",\\\"inboxOc\\\":\\\"%s\\\",\\\"composeBase\\\":\\\"%s\\\",\\\"composeN8n\\\":\\\"%s\\\",\\\"licFile\\\":\\\"%s\\\",\\\"ocFile\\\":\\\"%s\\\",\\\"licCols\\\":%s,\\\"ocBytes\\\":%s,\\\"ocLines\\\":%s,\\\"decision\\\":\\\"%s\\\",\\\"reason\\\":\\\"%s\\\"}\\n\" \\\n  \"$MODE\" \"$PERIOD\" \"$DLROOT\" \"$LIC_DIR\" \"$OC_DIR\" \"$BASE\" \"$N8N\" \\\n  \"$LIC_FILE\" \"$OC_FILE\" \\\n  \"$LIC_COLS\" \"$OC_SIZE_BYTES\" \"$OC_LINES\" \\\n  \"$DECISION\" \"$REASON\"\n'\n"
+      },
+      "name": "Check INBOX CSV (NO-ERROR)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        5420,
+        920
+      ],
+      "id": "42a0bcc8-f1e5-4aff-8ff9-84ec86a39930"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = items[0].json.stdout;\nif (!s) throw new Error('[FATAL] Extract Context: stdout vacío (no hay JSON)');\nlet ctx;\ntry { ctx = JSON.parse(s); } catch (e) { throw new Error('[FATAL] Extract Context: stdout no es JSON válido'); }\nreturn [{ json: { ...ctx } }];"
+      },
+      "name": "Extract Context (after INBOX)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5600,
+        920
+      ],
+      "id": "2e0d83f2-7fa0-4138-b582-7229226180bf"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.decisionGroup }}",
+              "value2": "RUN"
+            }
+          ]
+        }
+      },
+      "name": "IF decision == RUN?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        5960,
+        920
+      ],
+      "id": "477854f3-9f0c-495a-88f8-005af577e65b"
+    },
+    {
+      "parameters": {
+        "executeOnce": "={{ true }}",
+        "command": "=/bin/sh -lc '\nset -e\n\nPERIOD=\"{{ $json.period }}\"\nBASE=\"{{ $json.composeBase }}\"\nN8N=\"{{ $json.composeN8n }}\"\n\necho \"[RUN] Ejecutando periodo=${PERIOD}\" >&2\n\ndocker compose -p tfm -f \"$BASE\" -f \"$N8N\" run --rm --no-deps etl \\\n  python /app/run_period.py --period \"$PERIOD\" 1>&2\n\nprintf \"{\\\"period\\\":\\\"%s\\\",\\\"composeBase\\\":\\\"%s\\\",\\\"composeN8n\\\":\\\"%s\\\"}\\n\" \\\n  \"$PERIOD\" \"$BASE\" \"$N8N\"\n'\n"
+      },
+      "name": "Run Period (ETL)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        6300,
+        720
+      ],
+      "id": "316a0975-4362-4728-a3af-d413c9054315"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = items?.[0]?.json?.stdout;\nif (!raw) throw new Error('[FATAL] Extract Context: stdout vacío');\nconst lines = raw.trim().split('\\n').map(l => l.trim()).filter(Boolean);\nlet candidate = lines[lines.length - 1];\nfor (let i = lines.length - 1; i >= 0; i--) {\n  if (lines[i].startsWith('{') && lines[i].endsWith('}')) { candidate = lines[i]; break; }\n}\nlet ctx;\ntry { ctx = JSON.parse(candidate); } catch (e) {\n  throw new Error(`[FATAL] stdout no contiene JSON válido.\\n${candidate}`);\n}\nreturn [{ json: ctx }];"
+      },
+      "name": "Extract Context (after Run)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6520,
+        720
+      ],
+      "id": "645a9ef7-87af-454d-81d3-45963b4113dd"
+    },
+    {
+      "parameters": {
+        "executeOnce": "={{ true }}",
+        "command": "=/bin/sh -lc '\nset -e\n\nPERIOD=\"{{ $json.period }}\"\nBASE=\"{{ $json.composeBase }}\"\nN8N=\"{{ $json.composeN8n }}\"\n\necho \"[POST] Validando dw.etl_control_cargas para $PERIOD\" >&2\n\ndocker compose -p tfm -f \"$BASE\" -f \"$N8N\" exec -T chile-pg \\\n  psql -U chile_user -d chilecompra -c \\\n\"SELECT entidad, periodo, estado, filas_stg, filas_dw, ts_fin, error_msg\n FROM dw.etl_control_cargas\n WHERE periodo = '\\''$PERIOD'\\''\n ORDER BY entidad;\"\n'\n"
+      },
+      "name": "Postcheck DW Control",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        6720,
+        720
+      ],
+      "id": "37e93d54-8126-44c4-a687-3937f774da92"
+    },
+    {
+      "parameters": {
+        "jsCode": "const reasonMap = {\n  MISSING_DIR: 'Faltan directorios INBOX',\n  MISSING_FILE: 'Faltan archivos esperados (LIC_YYYY-MM.csv / OC_YYYY-MM.csv)',\n  LIC_SCHEMA_ANOM: 'EXCEPCION_FUENTE: LIC esquema anómalo (cols < 50) — excluido (ej. 2025-01)',\n  OC_SIZE_ANOM: 'OC tamaño anómalo (bytes < 5MB) — excluido (ej. 2025-03)',\n  OC_LINES_ANOM: 'OC filas anómalas (lines < 1000) — excluido',\n  OK: 'OK'\n};\n\nconst reasonText = reasonMap[$json.reason] || `${$json.decision || 'NO_OP'}: ${$json.reason}`;\n\nreturn [{ json: {\n  decision: $json.decision || 'NO_OP',\n  period: $json.period,\n  reason: reasonText,\n  reasonCode: $json.reason,\n  reasonText,\n  licFile: $json.licFile,\n  ocFile: $json.ocFile,\n  licCols: $json.licCols,\n  ocBytes: $json.ocBytes,\n  ocLines: $json.ocLines\n}}];"
+      },
+      "name": "Salida NO-OP",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6720,
+        980
+      ],
+      "id": "19da5bce-7bd6-455f-bab4-2ef94f9c943a"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Clasifica RUN / NO_OP / EXCEPCION_FUENTE\n// Regla: 2025-01 con LIC_SCHEMA_ANOM => EXCEPCION_FUENTE\n// Todo lo demás que no sea RUN => NO_OP\n\nconst period = $json.period;\nconst baseDecision = $json.decision || 'NO_OP';\nconst reasonCode = $json.reason || '';\n\nlet decision = baseDecision;\n\nif (period === '2025-01' && reasonCode === 'LIC_SCHEMA_ANOM') {\n  decision = 'EXCEPCION_FUENTE';\n}\n\nreturn [{\n  json: {\n    ...$json,\n    decision,\n    decisionGroup: decision === 'RUN' ? 'RUN' : 'SKIP'\n  }\n}];"
+      },
+      "name": "Classify Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5780,
+        920
+      ],
+      "id": "c56f756c-b152-454b-bb60-def7dc26d458"
+    },
+    {
+      "parameters": {
+        "executeOnce": "={{ true }}",
+        "command": "=/bin/sh -lc '\nset -e\n\ndocker compose -f \"{{ $json.composeBase }}\" exec -T chile-pg psql -U chile_user -d chilecompra -v ON_ERROR_STOP=1 -c \"\nCREATE SCHEMA IF NOT EXISTS dw;\n\nCREATE TABLE IF NOT EXISTS dw.etl_decisiones_periodo (\n  periodo            text PRIMARY KEY,\n  decision           text NOT NULL,\n  reason_code        text,\n  reason_text        text,\n  lic_file           text,\n  oc_file            text,\n  lic_cols           integer,\n  oc_bytes           bigint,\n  oc_lines           integer,\n  ts                 timestamp NOT NULL DEFAULT now()\n);\n\"\n'"
+      },
+      "name": "Ensure DW decision table",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        6300,
+        980
+      ],
+      "id": "4257e0ee-2a0b-485c-81db-c26c11ed6fc6"
+    },
+    {
+      "parameters": {
+        "executeOnce": "={{ true }}",
+        "command": "=set -e\n\ndocker compose -f \"{{ $node['Config MANUAL'].json.composeBase }}\" exec -T chile-pg \\\npsql -U chile_user -d chilecompra -v ON_ERROR_STOP=1 -c \"\nINSERT INTO dw.etl_decisiones_periodo\n(periodo, decision, reason_code, reason_text, lic_file, oc_file, lic_cols, oc_bytes, oc_lines, ts)\nVALUES\n(\n  '{{ $node['Classify Decision'].json.period }}',\n  '{{ $node['Classify Decision'].json.decision }}',\n  '{{ $node['Classify Decision'].json.reason }}',\n  '{{ $node['Classify Decision'].json.reasonText || $node['Classify Decision'].json.reason }}',\n  '{{ $node['Classify Decision'].json.licFile || '' }}',\n  '{{ $node['Classify Decision'].json.ocFile || '' }}',\n  {{ $node['Classify Decision'].json.licCols != null ? $node['Classify Decision'].json.licCols : 'NULL' }},\n  {{ $node['Classify Decision'].json.ocBytes != null ? $node['Classify Decision'].json.ocBytes : 'NULL' }},\n  {{ $node['Classify Decision'].json.ocLines != null ? $node['Classify Decision'].json.ocLines : 'NULL' }},\n  now()\n)\nON CONFLICT (periodo) DO UPDATE SET\n  decision    = EXCLUDED.decision,\n  reason_code = EXCLUDED.reason_code,\n  reason_text = EXCLUDED.reason_text,\n  lic_file    = EXCLUDED.lic_file,\n  oc_file     = EXCLUDED.oc_file,\n  lic_cols    = EXCLUDED.lic_cols,\n  oc_bytes    = EXCLUDED.oc_bytes,\n  oc_lines    = EXCLUDED.oc_lines,\n  ts          = now();\n\"\n"
+      },
+      "name": "Register Decision (NO_OP/EXC)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        6520,
+        980
+      ],
+      "id": "698e33c2-5066-4fd3-871e-0e391e545e64"
+    },
+    {
+      "parameters": {
+        "content": "🟢 RAMA RUN (ETL AUTORIZADO)\n\nEsta rama se ejecuta únicamente cuando:\n• LIC y OC están presentes.\n• Los archivos cumplen criterios mínimos de calidad.\n• La decisión final es RUN.\n\nACCIONES\n• Ejecuta ETL del período.\n• Valida control de cargas en DW (dw.etl_control_cargas).\n• Garantiza idempotencia:\n  - Si el período ya está OK → valida y omite reprocesamiento.\n\nNOTA\nEsta rama NO toma decisiones.",
+        "height": 510,
+        "width": 660,
+        "color": 4
+      },
+      "name": "📝 Nota - MANUAL",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6240,
+        380
+      ],
+      "id": "6e7afe8a-0f3d-40e4-92d0-75c20398fd02"
+    },
+    {
+      "parameters": {
+        "content": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n🟡 RAMA NO-OP / EXCEPCIÓN CONTROLADA\n\nEsta rama se ejecuta cuando:\n• Los datos existen pero no son ETL-ready.\n• Existe una anomalía real de la fuente.\n• Ejecutar ETL pondría en riesgo el DW.\n\nACCIONES\n• Registra decisión en dw.etl_decisiones_periodo.\n• NO ejecuta ETL.\n• Finaliza el workflow correctamente.\n\nIMPORTANTE\n• NO_OP ≠ error\n• NO_OP ≠ fallo técnico\n• NO_OP = decisión consciente y auditable\n\nCRITERIO\nSi existe duda razonable sobre la calidad del período, la decisión correcta es NO_OP.",
+        "height": 630,
+        "width": 660,
+        "color": 2
+      },
+      "name": "📝 Nota - AUTO",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6240,
+        960
+      ],
+      "id": "84664caa-279c-49a9-955b-7861e382386e"
+    },
+    {
+      "parameters": {
+        "content": "🔵 BLOQUE MANUAL (CONTROLADO)\n\nUso exclusivo para:\n• Backfill\n• Auditoría\n• Reprocesos controlados\n• Análisis de períodos anómalos\n\nINSTRUCCIONES\n• Cambiar SOLO el período en el nodo “Config MANUAL”.\n• Formato obligatorio: YYYY-MM.\n• No usar para operación automática.\n\nADVERTENCIA\n⛔ Este bloque no debe usarse en producción automática.\n\n\nCONTROL\nToda ejecución manual debe quedar registrada en dw.etl_decisiones_periodo.",
+        "height": 710,
+        "width": 1380,
+        "color": 5
+      },
+      "name": "📝 Nota - MANUAL1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4760,
+        380
+      ],
+      "id": "17178a05-ea7a-4025-a6cb-adb814ccfa29"
+    },
+    {
+      "parameters": {
+        "content": "⚠️ LEER ANTES DE EJECUTAR\n\nINSTRUCCIONES GENERALES — WORKFLOW TFM (FASE 5)\n\nRESUMEN EJECUTIVO\nEste workflow decide de forma explícita si un período se carga (RUN) o se bloquea (NO_OP) para proteger el Data Warehouse.\n\nPRINCIPIOS CLAVE\n• NO-OP no es error ni excepción técnica.\n• NO-OP es una decisión explícita y auditable.\n• El Data Warehouse NUNCA debe contaminarse con cargas incompletas.\n• El Data Lake NO se modifica para forzar ETL.\n\nCOMPORTAMIENTO ESPERADO\n• Datos válidos y completos → RUN (ETL).\n• Datos válidos pero NO ETL-ready → NO_OP controlado.\n• Anomalía de fuente conocida → NO_OP / EXCEPCION_FUENTE.\n\nCASOS REALES CONTROLADOS\n• 2025-01 → LIC con anomalía de esquema (fuente).\n• 2025-03 → OC válido pero no ETL-ready (tamaño/filas).\n\n✅ No ejecutar este workflow sin comprender estas reglas.",
+        "height": 480,
+        "width": 520,
+        "color": 6
+      },
+      "name": "📝 Nota - Instrucciones1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4180,
+        380
+      ],
+      "id": "06c5e09d-1e24-4207-b2ee-2df32dbdcd01"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config MANUAL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config MANUAL": {
+      "main": [
+        [
+          {
+            "node": "Normalize Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Context": {
+      "main": [
+        [
+          {
+            "node": "Preflight",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preflight": {
+      "main": [
+        [
+          {
+            "node": "Extract Context (after Preflight)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Context (after Preflight)": {
+      "main": [
+        [
+          {
+            "node": "Check INBOX CSV (NO-ERROR)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check INBOX CSV (NO-ERROR)": {
+      "main": [
+        [
+          {
+            "node": "Extract Context (after INBOX)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Context (after INBOX)": {
+      "main": [
+        [
+          {
+            "node": "Classify Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF decision == RUN?": {
+      "main": [
+        [
+          {
+            "node": "Run Period (ETL)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ensure DW decision table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Period (ETL)": {
+      "main": [
+        [
+          {
+            "node": "Extract Context (after Run)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Context (after Run)": {
+      "main": [
+        [
+          {
+            "node": "Postcheck DW Control",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Decision": {
+      "main": [
+        [
+          {
+            "node": "IF decision == RUN?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ensure DW decision table": {
+      "main": [
+        [
+          {
+            "node": "Register Decision (NO_OP/EXC)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Register Decision (NO_OP/EXC)": {
+      "main": [
+        [
+          {
+            "node": "Salida NO-OP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d586699a-852a-47cc-bf75-50964a5f479c",
+  "meta": {
+    "instanceId": "395e7e172d5292f7441d245899a99ccf990343c6559f6745fbcdf8bf004986f0"
+  },
+  "id": "gHLhuJpDimL6Fw71",
+  "tags": []
+}

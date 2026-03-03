@@ -1,0 +1,68 @@
+===== 2024-09 =====
+LIC: NO EXISTE
+OC: NO EXISTE
+===== 2024-10 =====
+total 362M
+-rwxrwxrwx 1 engineer engineer 362M Jan 16 11:49 LIC_2024-10.csv
+total 813M
+-rwxrwxrwx 1 engineer engineer 813M Jan 16 11:49 OC_2024-10.csv
+===== 2024-11 =====
+total 824M
+-rwxrwxrwx 1 engineer engineer 824M Jul 25 13:39 LIC_2024-11.csv
+total 758M
+-rwxrwxrwx 1 engineer engineer 758M Nov 13 17:46 OC_2024-11.csv
+===== 2024-12 =====
+total 547M
+-rwxrwxrwx 1 engineer engineer 547M Jun 24  2025 LIC_2024-12.csv
+total 667M
+-rwxrwxrwx 1 engineer engineer 667M Nov 13 17:43 OC_2024-12.csv
+===== 2025-01 =====
+total 512
+-rwxrwxrwx 1 engineer engineer 155 Nov 13 14:42 LIC_2025-01.csv
+total 586M
+-rwxrwxrwx 1 engineer engineer 586M Nov 13 15:00 OC_2025-01.csv
+===== 2025-02 =====
+total 998M
+-rwxrwxrwx 1 engineer engineer 998M Nov 13 14:59 LIC_2025-02.csv
+total 572M
+-rwxrwxrwx 1 engineer engineer 572M Nov 13 15:00 OC_2025-02.csv
+===== 2025-03 =====
+total 878M
+-rwxrwxrwx 1 engineer engineer 878M Nov 13 14:59 LIC_2025-03.csv
+total 16K
+-rwxrwxrwx 1 engineer engineer 13K Nov 13 15:00 OC_2025-03.csv
+===== 2025-04 =====
+total 902M
+-rwxrwxrwx 1 engineer engineer 902M Nov 13 14:59 LIC_2025-04.csv
+total 757M
+-rwxrwxrwx 1 engineer engineer 757M Nov 13 15:00 OC_2025-04.csv
+===== 2025-05 =====
+total 876M
+-rwxrwxrwx 1 engineer engineer 876M Nov 13 14:59 LIC_2025-05.csv
+total 710M
+-rwxrwxrwx 1 engineer engineer 710M Nov 13 15:00 OC_2025-05.csv
+===== 2025-06 =====
+total 761M
+-rwxrwxrwx 1 engineer engineer 761M Nov 13 15:00 LIC_2025-06.csv
+total 704M
+-rwxrwxrwx 1 engineer engineer 704M Nov 13 15:00 OC_2025-06.csv
+===== 2025-07 =====
+total 695M
+-rwxrwxrwx 1 engineer engineer 695M Nov 13 15:00 LIC_2025-07.csv
+total 726M
+-rwxrwxrwx 1 engineer engineer 726M Nov 13 15:00 OC_2025-07.csv
+===== 2025-08 =====
+total 680M
+-rwxrwxrwx 1 engineer engineer 680M Nov 13 15:00 LIC_2025-08.csv
+total 706M
+-rwxrwxrwx 1 engineer engineer 706M Nov 13 15:01 OC_2025-08.csv
+===== 2025-09 =====
+total 505M
+-rwxrwxrwx 1 engineer engineer 505M Nov 13 15:00 LIC_2025-09.csv
+total 653M
+-rwxrwxrwx 1 engineer engineer 653M Nov 13 15:01 OC_2025-09.csv
+===== 2025-10 =====
+total 381M
+-rwxrwxrwx 1 engineer engineer 381M Nov 13 14:59 LIC_2025-10.csv
+total 750M
+-rwxrwxrwx 1 engineer engineer 750M Nov 13 15:01 OC_2025-10.csv

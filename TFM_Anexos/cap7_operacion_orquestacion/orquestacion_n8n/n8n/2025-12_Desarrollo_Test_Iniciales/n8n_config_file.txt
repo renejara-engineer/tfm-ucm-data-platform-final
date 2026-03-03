@@ -1,0 +1,16 @@
+total 24K    
+drwxr-sr-x    5 node     node        4.0K Dec 17 20:55 .
+drwxr-sr-x    1 node     node        4.0K Dec 17 18:22 ..
+drwxr-sr-x    2 node     node        4.0K Dec 17 18:22 binaryData
+-rw-------    1 node     node          88 Dec 17 18:22 config
+-rw-r--r--    1 node     node           0 Dec 17 20:55 crash.journal
+drwxr-sr-x    2 node     node        4.0K Dec 17 18:22 git
+-rw-r--r--    1 node     node           0 Dec 17 20:33 n8nEventLog-1.log
+-rw-r--r--    1 node     node           0 Dec 17 20:00 n8nEventLog-2.log
+-rw-r--r--    1 node     node           0 Dec 17 18:22 n8nEventLog-3.log
+-rw-r--r--    1 node     node           0 Dec 17 20:55 n8nEventLog.log
+drwxr-sr-x    2 node     node        4.0K Dec 17 18:22 ssh
+----
+{
+	"encryptionKey": "2hoqe1djgsxDegm0CqjpLhpOtJyNGUShh5S0xyDszNrsd1iNw5Qbr88rlwHTN8p2"
+}

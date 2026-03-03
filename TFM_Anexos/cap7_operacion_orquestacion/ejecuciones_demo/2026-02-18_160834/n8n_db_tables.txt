@@ -1,0 +1,39 @@
+                  List of relations
+ Schema |            Name            | Type  | Owner 
+--------+----------------------------+-------+-------
+ public | annotation_tag_entity      | table | n8n
+ public | auth_identity              | table | n8n
+ public | auth_provider_sync_history | table | n8n
+ public | credentials_entity         | table | n8n
+ public | event_destinations         | table | n8n
+ public | execution_annotation_tags  | table | n8n
+ public | execution_annotations      | table | n8n
+ public | execution_data             | table | n8n
+ public | execution_entity           | table | n8n
+ public | execution_metadata         | table | n8n
+ public | installed_nodes            | table | n8n
+ public | installed_packages         | table | n8n
+ public | invalid_auth_token         | table | n8n
+ public | migrations                 | table | n8n
+ public | processed_data             | table | n8n
+ public | project                    | table | n8n
+ public | project_relation           | table | n8n
+ public | role                       | table | n8n
+ public | settings                   | table | n8n
+ public | shared_credentials         | table | n8n
+ public | shared_workflow            | table | n8n
+ public | tag_entity                 | table | n8n
+ public | test_case_execution        | table | n8n
+ public | test_definition            | table | n8n
+ public | test_metric                | table | n8n
+ public | test_run                   | table | n8n
+ public | user                       | table | n8n
+ public | user_api_keys              | table | n8n
+ public | variables                  | table | n8n
+ public | webhook_entity             | table | n8n
+ public | workflow_entity            | table | n8n
+ public | workflow_history           | table | n8n
+ public | workflow_statistics        | table | n8n
+ public | workflows_tags             | table | n8n
+(34 rows)
+

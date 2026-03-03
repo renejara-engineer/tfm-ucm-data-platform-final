@@ -1,0 +1,33 @@
+table_name,isHidden,columns_count,measures_count,partitions_count
+CRUCE_codigo_por_mes_v1,False,10,0,1
+CRUCE_codigo_rango_resumen_v1,False,5,3,1
+CRUCE_no_match_diagnostico_v1,False,8,0,1
+CRUCE_no_reconciliables_muestra_v1,False,6,0,1
+D4 NoCruce Medidas,False,1,6,1
+D6 Medidas,False,1,20,1
+D6_alerta_moneda_oferta,False,6,0,1
+D6_control_meses_lic,False,10,0,1
+D6_control_meses_oc,False,10,0,1
+D6_cruces_sector_moneda,False,5,0,1
+D6_dist_lic_por_oc,False,4,0,1
+D6_dist_lic_por_oc_mes,False,3,0,1
+D6_dist_oc_por_lic,False,3,0,1
+D6_kpi_resumen,False,10,0,1
+D6_moneda_mapeo_std,False,3,0,1
+D6_oc_con_sin_lic_por_mes,False,6,0,1
+D6_trend_por_mes,False,8,0,1
+RECON Medidas,False,1,7,1
+RECON_dim_moneda,False,1,0,1
+SEM Medidas,False,1,17,1
+d_estado_proceso,False,1,0,1
+dashb_C2_Medidas,False,1,11,1
+dim_periodo_cruce,False,3,0,1
+dw dim_fecha,False,12,0,1
+dw dim_organismo,False,9,0,1
+dw dim_producto_onu,False,8,0,1
+dw dim_proveedor,False,9,0,1
+dw_sem v_dim_organismo_sem,False,15,0,1
+dw_sem v_fact_licitaciones_sem,False,28,0,1
+dw_sem v_fact_ordenes_compra_sem,False,25,0,1
+dw_sem v_fact_ordenes_compra_sem_v2,False,25,0,1
+dw_sem.v_fact_licitaciones_sem_v2,False,28,0,1

@@ -1,0 +1,144 @@
+table_name,partition_name,mode,source_type,query,source_class
+dw dim_fecha,dw dim_fecha,import,m,"let
+    Source = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_dim_fecha = Source{[Schema=""dw"",Item=""dim_fecha""]}[Data],
+    #""Filas filtradas"" = Table.SelectRows(dw_dim_fecha, each true),
+    #""Filas ordenadas"" = Table.Sort(#""Filas filtradas"",{{""anio"", Order.Ascending}})
+in
+    #""Filas ordenadas""",POSTGRES_DW
+dw dim_organismo,dw dim_organismo,import,m,"let
+    Source = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_dim_organismo = Source{[Schema=""dw"",Item=""dim_organismo""]}[Data]
+in
+    dw_dim_organismo",POSTGRES_DW
+dw dim_proveedor,dw dim_proveedor,import,m,"let
+    Source = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_dim_proveedor = Source{[Schema=""dw"",Item=""dim_proveedor""]}[Data]
+in
+    dw_dim_proveedor",POSTGRES_DW
+dw dim_producto_onu,dw dim_producto_onu,import,m,"let
+    Source = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_dim_producto_onu = Source{[Schema=""dw"",Item=""dim_producto_onu""]}[Data]
+in
+    dw_dim_producto_onu",POSTGRES_DW
+dw_sem v_fact_licitaciones_sem,dw_sem v_fact_licitaciones_sem,import,m,"let
+    Origen = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_sem_v_fact_licitaciones_sem = Origen{[Schema=""dw_sem"",Item=""v_fact_licitaciones_sem""]}[Data]
+in
+    dw_sem_v_fact_licitaciones_sem",POSTGRES_DW
+dw_sem v_fact_ordenes_compra_sem,dw_sem v_fact_ordenes_compra_sem,import,m,"let
+    Origen = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_sem_v_fact_ordenes_compra_sem = Origen{[Schema=""dw_sem"",Item=""v_fact_ordenes_compra_sem""]}[Data]
+in
+    dw_sem_v_fact_ordenes_compra_sem",POSTGRES_DW
+dw_sem v_dim_organismo_sem,dw_sem v_dim_organismo_sem,import,m,"let
+    Origen = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_sem_v_dim_organismo_sem = Origen{[Schema=""dw_sem"",Item=""v_dim_organismo_sem""]}[Data]
+in
+    dw_sem_v_dim_organismo_sem",POSTGRES_DW
+SEM Medidas,SEM Medidas,import,calculated,,
+dw_sem v_fact_ordenes_compra_sem_v2,dw_sem v_fact_ordenes_compra_sem_v2,import,m,"let
+    Origen = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_sem_v_fact_ordenes_compra_sem_v2 = Origen{[Schema=""dw_sem"",Item=""v_fact_ordenes_compra_sem_v2""]}[Data]
+in
+    dw_sem_v_fact_ordenes_compra_sem_v2",POSTGRES_DW
+dw_sem.v_fact_licitaciones_sem_v2,dw_sem.v_fact_licitaciones_sem_v2,import,m,"let
+    Origen = PostgreSQL.Database(""192.168.0.5:5433"", ""chilecompra""),
+    dw_sem_v_fact_licitaciones_sem_v2 = Origen{[Schema=""dw_sem"",Item=""v_fact_licitaciones_sem_v2""]}[Data]
+in
+    dw_sem_v_fact_licitaciones_sem_v2",POSTGRES_DW
+d_estado_proceso,d_estado_proceso,import,calculated,,
+dashb_C2_Medidas,dashb_C2_Medidas,import,calculated,,
+CRUCE_codigo_por_mes_v1,CRUCE_codigo_por_mes_v1,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\01_Cruce_LIC_OC\CRUCE_codigo_por_mes_v1.csv""),[Delimiter="","", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""periodo"", type date}, {""lic_codigos"", Int64.Type}, {""oc_codigos"", Int64.Type}, {""matches"", Int64.Type}, {""pct_match_lic"", type number}, {""pct_match_oc"", type number}}),
+    #""Personalizada agregada"" = Table.AddColumn(#""Tipo cambiado"", ""Periodo_YM"", each Date.ToText([periodo], ""yyyy-MM"")),
+    #""Personalizada agregada1"" = Table.AddColumn(#""Personalizada agregada"", ""anno"", each Date.ToText([periodo], ""yyyy-MM"")),
+    #""Columnas quitadas"" = Table.RemoveColumns(#""Personalizada agregada1"",{""anno""}),
+    #""Personalizada agregada2"" = Table.AddColumn(#""Columnas quitadas"", ""pct_match_lic_real"", each [pct_match_lic] / 100)
+in
+    #""Personalizada agregada2""",CSV
+CRUCE_codigo_rango_resumen_v1,CRUCE_codigo_rango_resumen_v1,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\01_Cruce_LIC_OC\CRUCE_codigo_rango_resumen_v1.csv""),[Delimiter="","", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""lic_codigos_distintos"", Int64.Type}, {""oc_codigos_licitacion_distintos"", Int64.Type}, {""matches_distintos"", Int64.Type}, {""pct_match_sobre_lic"", type number}, {""pct_match_sobre_oc"", type number}})
+in
+    #""Tipo cambiado""",CSV
+dim_periodo_cruce,dim_periodo_cruce,import,calculated,,
+D4 NoCruce Medidas,D4 NoCruce Medidas,import,calculated,,
+CRUCE_no_match_diagnostico_v1,CRUCE_no_match_diagnostico_v1,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\01_Cruce_LIC_OC\dashboard_1_4\CRUCE_no_match_diagnostico_v1.csv""),[Delimiter="","", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""anio"", Int64.Type}, {""periodo"", type date}, {""pct_no_match_lic"", type number}, {""pct_no_match_oc"", type number}, {""lic_sin_oc"", Int64.Type}, {""oc_sin_lic"", Int64.Type}})
+in
+    #""Tipo cambiado""",CSV
+CRUCE_no_reconciliables_muestra_v1,CRUCE_no_reconciliables_muestra_v1,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\01_Cruce_LIC_OC\dashboard_1_4\CRUCE_no_reconciliables_muestra_v1.csv""),[Delimiter="","", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""codigo"", type text}, {""tipo_no_cruce"", type text}, {""periodo_ref"", type date}, {""anio_ref"", Int64.Type}, {""nota_tecnica"", type text}})
+in
+    #""Tipo cambiado""",CSV
+D6_alerta_moneda_oferta,D6_alerta_moneda_oferta,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_alerta_moneda_oferta.csv""),[Delimiter="","", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""periodo"", type date}, {""lic_total"", Int64.Type}, {""n_oferta_moneda_revisar"", Int64.Type}, {""n_oferta_vacia"", Int64.Type}, {""pct_oferta_moneda_revisar"", Int64.Type}})
+in
+    #""Tipo cambiado""",CSV
+D6_control_meses_lic,D6_control_meses_lic,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_control_meses_lic.csv""),[Delimiter="","", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""periodo"", type date}, {""tabla"", type text}, {""incluida"", type logical}, {""lic_id_col"", type text}, {""sector_col"", type text}, {""tiene_codigomoneda"", type logical}, {""tiene_moneda_adquisicion"", type logical}, {""tiene_moneda_oferta"", type logical}, {""motivo_exclusion"", type text}})
+in
+    #""Tipo cambiado""",CSV
+D6_control_meses_oc,D6_control_meses_oc,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_control_meses_oc.csv""),[Delimiter="","", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""periodo"", type date}, {""tabla"", type text}, {""incluida"", type logical}, {""tiene_codigo"", type logical}, {""tiene_codigolicitacion"", type logical}, {""tiene_tipomonedaoc"", type logical}, {""tiene_monedaitem"", type logical}, {""tiene_sector"", type logical}, {""motivo_exclusion"", type text}})
+in
+    #""Tipo cambiado""",CSV
+D6_cruces_sector_moneda,D6_cruces_sector_moneda,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_cruces_sector_moneda.csv""),[Delimiter="","", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""sector_lic"", type text}, {""moneda_std"", type text}, {""lic_total"", Int64.Type}, {""lic_con_oc"", Int64.Type}, {""pct_lic_con_oc"", type number}})
+in
+    #""Tipo cambiado""",CSV
+D6_dist_lic_por_oc,D6_dist_lic_por_oc,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_dist_lic_por_oc.csv""),[Delimiter="","", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""bucket"", Int64.Type}, {""frecuencia_oc"", Int64.Type}})
+in
+    #""Tipo cambiado""",CSV
+D6_dist_oc_por_lic,D6_dist_oc_por_lic,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_dist_oc_por_lic.csv""),[Delimiter="","", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""bucket"", Int64.Type}, {""frecuencia_lic"", Int64.Type}})
+in
+    #""Tipo cambiado""",CSV
+D6_kpi_resumen,D6_kpi_resumen,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_kpi_resumen.csv""),[Delimiter="","", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""periodo_ini"", type date}, {""periodo_fin"", type date}, {""lic_distintas"", Int64.Type}, {""lic_con_oc"", Int64.Type}, {""pct_lic_con_oc"", type number}, {""oc_distintas"", Int64.Type}, {""oc_con_lic"", Int64.Type}, {""pct_oc_con_lic"", Int64.Type}, {""mediana_oc_por_lic"", Int64.Type}, {""mediana_lic_por_oc"", Int64.Type}})
+in
+    #""Tipo cambiado""",CSV
+D6_moneda_mapeo_std,D6_moneda_mapeo_std,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_moneda_mapeo_std.csv""),[Delimiter="","", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(Origen,{{""Column1"", type text}, {""Column2"", type text}, {""Column3"", type text}})
+in
+    #""Tipo cambiado""",CSV
+D6_oc_con_sin_lic_por_mes,D6_oc_con_sin_lic_por_mes,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_oc_con_sin_lic_por_mes.csv""),[Delimiter="","", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""periodo"", type date}, {""oc_total"", Int64.Type}, {""oc_con_lic"", Int64.Type}, {""oc_sin_lic"", Int64.Type}, {""pct_oc_con_lic"", type number}})
+in
+    #""Tipo cambiado""",CSV
+D6_trend_por_mes,D6_trend_por_mes,import,m,"let
+    Origen = Csv.Document(File.Contents(""<RUTA_LOCAL_POWERBI>\02_Cruce\D6_trend_por_mes.csv""),[Delimiter="","", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #""Encabezados promovidos"" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+    #""Tipo cambiado"" = Table.TransformColumnTypes(#""Encabezados promovidos"",{{""periodo"", type date}, {""lic_total"", Int64.Type}, {""lic_con_oc"", Int64.Type}, {""oc_total"", Int64.Type}, {""oc_con_lic"", Int64.Type}, {""pct_lic_con_oc"", type number}, {""pct_oc_con_lic"", type number}})
+in
+    #""Tipo cambiado""",CSV
+D6 Medidas,D6 Medidas,import,calculated,,
+D6_dist_lic_por_oc_mes,D6_dist_lic_por_oc_mes,import,calculated,,
+RECON Medidas,RECON Medidas,import,calculated,,
+RECON_dim_moneda,RECON_dim_moneda,import,calculated,,

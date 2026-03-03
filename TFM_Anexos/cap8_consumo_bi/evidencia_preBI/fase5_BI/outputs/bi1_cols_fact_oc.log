@@ -1,0 +1,34 @@
+                                     Table "dw.fact_ordenes_compra"
+       Column        |            Type             | Collation | Nullable |           Default            
+---------------------+-----------------------------+-----------+----------+------------------------------
+ orden_compra_sk     | bigint                      |           | not null | generated always as identity
+ orden_compra_bk     | text                        |           | not null | 
+ fecha_creacion_sk   | integer                     |           |          | 
+ fecha_aceptacion_sk | integer                     |           |          | 
+ organismo_sk        | integer                     |           |          | 
+ proveedor_sk        | integer                     |           |          | 
+ producto_onu_sk     | integer                     |           |          | 
+ monto_total         | numeric(18,2)               |           |          | 
+ cantidad_total      | numeric(18,2)               |           |          | 
+ cantidad_items      | integer                     |           |          | 
+ estado_oc           | text                        |           |          | 
+ tipo_oc             | text                        |           |          | 
+ moneda              | text                        |           |          | 
+ periodo             | text                        |           | not null | 
+ source_file         | text                        |           |          | 
+ ingested_at         | timestamp without time zone |           | not null | now()
+Indexes:
+    "fact_ordenes_compra_pkey" PRIMARY KEY, btree (orden_compra_sk)
+    "ix_fact_oc_fcrea" btree (fecha_creacion_sk)
+    "ix_fact_oc_org" btree (organismo_sk)
+    "ix_fact_oc_periodo" btree (periodo)
+    "ix_fact_oc_prod" btree (producto_onu_sk)
+    "ix_fact_oc_prov" btree (proveedor_sk)
+    "ux_fact_oc_bk_periodo" UNIQUE, btree (orden_compra_bk, periodo)
+Foreign-key constraints:
+    "fk_fact_oc_fecha_aceptacion" FOREIGN KEY (fecha_aceptacion_sk) REFERENCES dw.dim_fecha(fecha_sk)
+    "fk_fact_oc_fecha_creacion" FOREIGN KEY (fecha_creacion_sk) REFERENCES dw.dim_fecha(fecha_sk)
+    "fk_fact_oc_organismo" FOREIGN KEY (organismo_sk) REFERENCES dw.dim_organismo(organismo_sk)
+    "fk_fact_oc_producto" FOREIGN KEY (producto_onu_sk) REFERENCES dw.dim_producto_onu(producto_onu_sk)
+    "fk_fact_oc_proveedor" FOREIGN KEY (proveedor_sk) REFERENCES dw.dim_proveedor(proveedor_sk)
+

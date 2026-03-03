@@ -1,0 +1,65 @@
+table_name,measure_name,expression,formatString,isHidden
+SEM Medidas,SEM LIC Monto Adjudicado,"['', 'COALESCE (', ""    SUM ( 'dw_sem.v_fact_licitaciones_sem_v2'[monto_adjudicado] ),"", '    0', ')']","#,0",False
+SEM Medidas,SEM LIC Monto Estimado,"['', 'SUMX (', ""    VALUES ( 'dw_sem.v_fact_licitaciones_sem_v2'[licitacion_sk] ),"", '    CALCULATE (', ""        MAX ( 'dw_sem.v_fact_licitaciones_sem_v2'[monto_estimado] ),"", ""        'dw_sem.v_fact_licitaciones_sem_v2'[flag_monto_estimado_anom] = 0,"", ""        'dw_sem.v_fact_licitaciones_sem_v2'[flag_moneda_missing] = 0,"", ""        'dw_sem.v_fact_licitaciones_sem_v2'[flag_moneda_unknown] = 0"", '    )', ')']",,False
+SEM Medidas,SEM LIC N° Licitaciones,"['', ""COUNTROWS ( 'dw_sem.v_fact_licitaciones_sem_v2' )""]","#,0",False
+SEM Medidas,SEM LIC Productos ONU Distintos,"['', ""DISTINCTCOUNT ( 'dw_sem.v_fact_licitaciones_sem_v2'[producto_onu_sk] )""]","#,0",False
+SEM Medidas,SEM LIC Proveedores Distintos,"['', ""DISTINCTCOUNT ( 'dw_sem.v_fact_licitaciones_sem_v2'[proveedor_sk] )""]","#,0",False
+SEM Medidas,OC Moneda Unica,"['', ""HASONEVALUE('dw_sem v_fact_ordenes_compra_sem_v2'[moneda])""]","""TRUE"";""TRUE"";""FALSE""",False
+SEM Medidas,OC #,"['', ""COUNTROWS('dw_sem v_fact_ordenes_compra_sem_v2')""]",0,False
+SEM Medidas,SEM LIC N° (Publicadas),"['', ""COUNTROWS ( 'dw_sem.v_fact_licitaciones_sem_v2' )""]",0,False
+SEM Medidas,OC Monto (moneda unica),"['', 'IF(', '    [OC Moneda Unica],', ""    SUM('dw_sem v_fact_ordenes_compra_sem_v2'[monto_total]),"", '    BLANK()', ')']","#,0.00",False
+SEM Medidas,OC Proveedores,"['', ""DISTINCTCOUNT('dw_sem v_fact_ordenes_compra_sem_v2'[proveedor_sk])""]","#,0",False
+SEM Medidas,OC Productos ONU Distintos,"['', ""DISTINCTCOUNT('dw_sem v_fact_ordenes_compra_sem_v2'[producto_onu_sk])""]","#,0",False
+SEM Medidas,OC Organismos Distintos,"['', ""DISTINCTCOUNT('dw_sem v_fact_ordenes_compra_sem_v2'[organismo_sk])""]","#,0",False
+SEM Medidas,OC # Pendientes de Aceptacion,"['', 'CALCULATE(', '    [OC #],', '    FILTER(', ""        'dw_sem v_fact_ordenes_compra_sem_v2',"", ""        ISBLANK('dw_sem v_fact_ordenes_compra_sem_v2'[fecha_aceptacion_sk])"", '    )', ')']","#,0",False
+SEM Medidas,SEM LIC Moneda Unica,"['', ""HASONEVALUE('dw_sem.v_fact_licitaciones_sem_v2'[moneda])""]","""TRUE"";""TRUE"";""FALSE""",False
+SEM Medidas,SEM LIC Monto Adjudicado (moneda unica),"['', 'IF(', '    [SEM LIC Moneda Unica],', '    COALESCE(', ""        SUM('dw_sem.v_fact_licitaciones_sem_v2'[monto_adjudicado]),"", '        0', '    ),', '    BLANK()', ')']",,False
+SEM Medidas,SEM LIC Monto Estimado (moneda unica),"['', 'IF(', '    [SEM LIC Moneda Unica],', '    SUMX(', ""        VALUES('dw_sem.v_fact_licitaciones_sem_v2'[licitacion_sk]),"", '        CALCULATE(', ""            MAX('dw_sem.v_fact_licitaciones_sem_v2'[monto_estimado]),"", ""            'dw_sem.v_fact_licitaciones_sem_v2'[flag_monto_estimado_anom] = 0,"", ""            'dw_sem.v_fact_licitaciones_sem_v2'[flag_moneda_missing] = 0,"", ""            'dw_sem.v_fact_licitaciones_sem_v2'[flag_moneda_unknown] = 0"", '        )', '    ),', '    BLANK()', ')']",,False
+SEM Medidas,SEM LIC Aviso Moneda,"['', ""VAR m = SELECTEDVALUE('dw_sem.v_fact_licitaciones_sem_v2'[moneda])"", 'RETURN', 'IF(', '    m = ""Moneda revisar"",', '    ""⚠️ Moneda \'revisar\': montos no interpretables. Selecciona una moneda válida (CLP/USD/UF)."",', '    """"', ')']",,False
+dashb_C2_Medidas,OC Conteo,"['', 'DISTINCTCOUNT (', ""    'dw_sem v_fact_ordenes_compra_sem_v2'[orden_compra_bk]"", ')']","#,0",False
+dashb_C2_Medidas,OC_Total (debug),"['', 'CALCULATE (', '    [OC Conteo],', ""    REMOVEFILTERS ( 'dw_sem v_fact_ordenes_compra_sem_v2'[estado_oc] )"", ')']",0,False
+dashb_C2_Medidas,OC_% (tabla por estado_oc),"['', 'DIVIDE (', '    [OC Conteo],', '    [OC_Total (debug)]', ')']",0.00\ %;-0.00\ %;0.00\ %,False
+dashb_C2_Medidas,OC Total,"['', 'DISTINCTCOUNT (', ""    'dw_sem v_fact_ordenes_compra_sem_v2'[orden_compra_bk]"", ')']","#,0",False
+dashb_C2_Medidas,OC por Estado,"['', ""DISTINCTCOUNT ( 'dw_sem v_fact_ordenes_compra_sem_v2'[cantidad_items] )""]",0,False
+dashb_C2_Medidas,% OC por Estado (tarjeta),"['', 'VAR Numerador = [OC Conteo]', 'VAR Denominador =', '    CALCULATE(', '        [OC Conteo],', ""        REMOVEFILTERS('dw_sem v_fact_ordenes_compra_sem_v2'[estado_oc])"", '    )', 'RETURN', 'DIVIDE(Numerador, Denominador)']",0.00\ %;-0.00\ %;0.00\ %,False
+dashb_C2_Medidas,LIC Conteo,"['', ""DISTINCTCOUNT ( 'dw_sem.v_fact_licitaciones_sem_v2'[licitacion_bk] )""]","#,0",False
+dashb_C2_Medidas,LIC Total,"['', ""DISTINCTCOUNT ( 'dw_sem.v_fact_licitaciones_sem_v2'[licitacion_bk] )""]",0,False
+dashb_C2_Medidas,% LIC por Estado (tarjeta),"['', 'VAR Numerador = [LIC Conteo]', 'VAR Denominador =', '    CALCULATE(', '        [LIC Conteo],', ""        REMOVEFILTERS('dw_sem.v_fact_licitaciones_sem_v2'[estado_licitacion])"", '    )', 'RETURN', 'DIVIDE(Numerador, Denominador)']",0.00\ %;-0.00\ %;0.00\ %,False
+dashb_C2_Medidas,LIC % (tabla por estado_licitacion),"['', 'DIVIDE(', '    [LIC Conteo],', '    [LIC Total (sin estado licitacion)]', ')', '']",0.00\ %;-0.00\ %;0.00\ %,False
+dashb_C2_Medidas,LIC Total (sin estado licitacion),"['', 'CALCULATE(', '    [LIC Conteo],', ""    REMOVEFILTERS( 'dw_sem.v_fact_licitaciones_sem_v2'[estado_licitacion] )"", ')']",0,False
+CRUCE_codigo_rango_resumen_v1,KPI4_Licitaciones_sin_OC,"['', 'SUM ( CRUCE_codigo_rango_resumen_v1[lic_codigos_distintos] )', '- SUM ( CRUCE_codigo_rango_resumen_v1[matches_distintos] )']","#,0",False
+CRUCE_codigo_rango_resumen_v1,LIC con OC asociada,"['', 'SUM ( CRUCE_codigo_rango_resumen_v1[matches_distintos] )']","#,0",False
+CRUCE_codigo_rango_resumen_v1,LIC sin OC asociada,"['', 'SUM ( CRUCE_codigo_rango_resumen_v1[lic_codigos_distintos] )', '- SUM ( CRUCE_codigo_rango_resumen_v1[matches_distintos] )']","#,0",False
+D4 NoCruce Medidas,KPI LIC con OC asociada,"['', 'SUM ( CRUCE_codigo_rango_resumen_v1[matches_distintos] )']","#,0",False
+D4 NoCruce Medidas,Total LIC analizadas,"['', 'SUM ( CRUCE_codigo_rango_resumen_v1[lic_codigos_distintos] )']",0,False
+D4 NoCruce Medidas,KPI LIC sin OC asociada,"['', '[Total LIC analizadas] - [KPI LIC con OC asociada]']","#,0",False
+D4 NoCruce Medidas,KPI OC con LIC asociada,"['', 'SUM ( CRUCE_codigo_rango_resumen_v1[oc_codigos_licitacion_distintos] )']","#,0",False
+D4 NoCruce Medidas,Total OC analizadas,"['', 'VAR oc_con_lic =', '    SUM ( CRUCE_codigo_rango_resumen_v1[oc_codigos_licitacion_distintos] )', 'VAR pct_oc =', '    SUM ( CRUCE_codigo_rango_resumen_v1[pct_match_sobre_oc] ) / 100', 'RETURN', '    ROUND ( DIVIDE ( oc_con_lic, pct_oc ), 0 )']",,False
+D4 NoCruce Medidas,KPI OC sin LIC asociada,"['', '[Total OC analizadas] - [KPI OC con LIC asociada]', '']","#,0",False
+D6 Medidas,D6 LIC Total,SUM ( D6_trend_por_mes[lic_total] ),"#,0",False
+D6 Medidas,D6 LIC con OC,SUM ( D6_trend_por_mes[lic_con_oc] ),"#,0",False
+D6 Medidas,D6 OC Total,SUM ( D6_trend_por_mes[oc_total] ),0,False
+D6 Medidas,D6 OC con LIC,SUM ( D6_trend_por_mes[oc_con_lic] ),0,False
+D6 Medidas,D6 % LIC con OC,"['', 'VAR denom = [D6 LIC Total]', 'RETURN IF ( denom = 0 || ISBLANK(denom), BLANK(), DIVIDE( [D6 LIC con OC], denom ) )']",0.00\ %;-0.00\ %;0.00\ %,False
+D6 Medidas,D6 % OC con LIC,"['', 'VAR denom = [D6 OC Total]', 'RETURN IF ( denom = 0 || ISBLANK(denom), BLANK(), DIVIDE( [D6 OC con LIC], denom ) )']",0.00\ %;-0.00\ %;0.00\ %,False
+D6 Medidas,D6 OC con LIC (tabla OC),SUM ( D6_oc_con_sin_lic_por_mes[oc_con_lic] ),0,False
+D6 Medidas,D6 OC Total (tabla OC),SUM ( D6_oc_con_sin_lic_por_mes[oc_total] ),0,False
+D6 Medidas,D6 Mediana OC por LIC (global),MAX ( D6_kpi_resumen[mediana_oc_por_lic] ),0,False
+D6 Medidas,D6 Mediana LIC por OC (global),MAX ( D6_kpi_resumen[mediana_lic_por_oc] ),0,False
+D6 Medidas,D6 LIC Total (Sector/Moneda),SUM ( D6_cruces_sector_moneda[lic_total] ),"#,0",False
+D6 Medidas,D6 LIC con OC (Sector/Moneda),SUM ( D6_cruces_sector_moneda[lic_con_oc] ),"#,0",False
+D6 Medidas,D6 % LIC con OC (Sector/Moneda),"['', 'VAR denom = [D6 LIC Total (Sector/Moneda)]', 'RETURN IF ( denom = 0 || ISBLANK(denom), BLANK(), DIVIDE( [D6 LIC con OC (Sector/Moneda)], denom ) )']",,False
+D6 Medidas,D6 % LIC con OC (Safe),"['', 'VAR total_lic = [D6 LIC Total]', 'VAR lic_con_oc = [D6 LIC con OC]', 'RETURN', 'IF(', '    total_lic = 0,', '    0,', '    DIVIDE(lic_con_oc, total_lic, 0)', ')']",0.00\ %;-0.00\ %;0.00\ %,False
+D6 Medidas,D6 % OC con LIC (Safe),"['', 'VAR total_oc   = [D6 OC Total]', 'VAR oc_con_lic = [D6 OC con LIC]', 'RETURN', 'IF(', '    total_oc = 0,', '    0,', '    DIVIDE(oc_con_lic, total_oc, 0)', ')']",0.00\ %;-0.00\ %;0.00\ %,False
+D6 Medidas,D6_Label,"['', '""ℹ️""']",,False
+D6 Medidas,D6 Frec LIC (0/1) por periodo,"['', 'CALCULATE(', '    SUM ( D6_dist_lic_por_oc_mes[frecuencia_lic] ),', '    TREATAS(', '        VALUES ( dim_periodo_cruce[Periodo_YM] ),', '        D6_dist_lic_por_oc_mes[Periodo_YM]', '    )', ')']","#,0",False
+D6 Medidas,Cobertura LIC con OC (%),"['', 'DIVIDE(', '    SUM(D6_cruces_sector_moneda[lic_con_oc]),', '    SUM(D6_cruces_sector_moneda[lic_total]),', '    0', ')']",0.00\ %;-0.00\ %;0.00\ %,False
+D6 Medidas,D6 % LIC con OC (Label Último),"['', 'VAR _maxPeriodo =', '    MAXX(', '        ALLSELECTED( dim_periodo_cruce[Periodo_YM] ),', '        dim_periodo_cruce[Periodo_YM]', '    )', 'VAR _periodoActual =', '    MAX( dim_periodo_cruce[Periodo_YM] )', 'RETURN', 'IF(', '    _periodoActual = _maxPeriodo,', '    [D6 % LIC con OC (Safe)],', '    BLANK()', ')']",0.00\ %;-0.00\ %;0.00\ %,False
+D6 Medidas,D6 % OC con LIC (Label Último),"['', 'VAR _maxPeriodo =', '    MAXX(', '        ALLSELECTED( dim_periodo_cruce[Periodo_YM] ),', '        dim_periodo_cruce[Periodo_YM]', '    )', 'VAR _periodoActual =', '    MAX( dim_periodo_cruce[Periodo_YM] )', 'RETURN', 'IF(', '    _periodoActual = _maxPeriodo,', '    [D6 % OC con LIC (Safe)],', '    BLANK()', ')']",0.00\ %;-0.00\ %;0.00\ %,False
+RECON Medidas,LIC_Num(etiqueta),"['', ""COUNTROWS ( 'dw_sem.v_fact_licitaciones_sem_v2' )""]","#,0",False
+RECON Medidas,OC_Conteo(etiqueta),"['', ""COUNTROWS ( 'dw_sem v_fact_ordenes_compra_sem' )""]",0,False
+RECON Medidas,OC_Monto_Total(tabla-etiqueta),"['', ""SUM ( 'dw_sem v_fact_ordenes_compra_sem_v2'[monto_total] )""]","#,0",False
+RECON Medidas,OC_Monto_Total(etiqueta)(Fecha Aceptación válida),"['', 'CALCULATE (', ""    SUM ( 'dw_sem v_fact_ordenes_compra_sem_v2'[monto_total] ),"", ""    NOT ISBLANK ( 'dw_sem v_fact_ordenes_compra_sem_v2'[fecha_aceptacion_sk] )"", ')']","#,0",False
+RECON Medidas,LIC_Conteo(tabla),"['', ""COUNTROWS ( 'dw_sem.v_fact_licitaciones_sem_v2' )""]","#,0",False
+RECON Medidas,OC_Conteo_Total(tabla),"['', ""COUNTROWS ( 'dw_sem v_fact_ordenes_compra_sem_v2' )""]","#,0",False
+RECON Medidas,OC_Monto_Total(etiqueta),"['', ""SUM ( 'dw_sem v_fact_ordenes_compra_sem'[monto_total] )""]",,False

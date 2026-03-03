@@ -1,0 +1,4 @@
+ periodo | n_sentinel 
+---------+------------
+(0 rows)
+

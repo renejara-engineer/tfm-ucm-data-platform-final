@@ -1,0 +1,58 @@
+services:
+
+  n8n-db:
+    image: postgres:15-alpine
+    container_name: "${COMPOSE_PROJECT_NAME}-n8n-db-1"
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${N8N_DB_USER}
+      POSTGRES_PASSWORD: ${N8N_DB_PASSWORD}
+      POSTGRES_DB: ${N8N_DB_DATABASE}
+    volumes:
+      - n8n_pg_data:/var/lib/postgresql/data
+    networks:
+      - tfm_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${N8N_DB_USER} -d ${N8N_DB_DATABASE}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  n8n:
+    image: n8nio/n8n:1
+    container_name: "${COMPOSE_PROJECT_NAME}-n8n-1"
+    restart: unless-stopped
+    depends_on:
+      n8n-db:
+        condition: service_healthy
+    user: "${UID}:${GID}"
+    environment:
+      N8N_BASIC_AUTH_ACTIVE: ${N8N_BASIC_AUTH_ACTIVE}
+      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER}
+      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD}
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      DB_TYPE: ${DB_TYPE}
+      DB_POSTGRESDB_HOST: ${DB_POSTGRESDB_HOST}
+      DB_POSTGRESDB_PORT: ${DB_POSTGRESDB_PORT}
+      DB_POSTGRESDB_DATABASE: ${DB_POSTGRESDB_DATABASE}
+      DB_POSTGRESDB_USER: ${DB_POSTGRESDB_USER}
+      DB_POSTGRESDB_PASSWORD: ${DB_POSTGRESDB_PASSWORD}
+      WEBHOOK_URL: ${WEBHOOK_URL}
+      N8N_EDITOR_BASE_URL: ${N8N_EDITOR_BASE_URL}
+      GENERIC_TIMEZONE: ${GENERIC_TIMEZONE}
+    ports:
+      - "${N8N_PORT}:5678"
+    networks:
+      - tfm_net
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./deployment/evidence/n8n:/evidence:rw
+      - ./:/tfm_ucm:ro
+      - ${DATA_LAKE_HOST}:${DATA_LAKE_ROOT}:rw
+
+volumes:
+  n8n_data:
+  n8n_pg_data:
+
+networks:
+  tfm_net:

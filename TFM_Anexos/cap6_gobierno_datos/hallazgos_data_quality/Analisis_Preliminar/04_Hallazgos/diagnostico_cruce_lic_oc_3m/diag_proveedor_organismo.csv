@@ -1,0 +1,4 @@
+mes,lic_prov,oc_prov,lic_org,oc_org,prov_lic,prov_oc,prov_inter,prov_pct_lic,org_lic,org_oc,org_inter,org_pct_lic
+2024-10,CodigoProveedor,CodigoProveedor,CodigoOrganismo,CodigoOrganismoPublico,13672,22209,6722,49.16617905207723,888,1038,881,99.21171171171171
+2024-11,CodigoProveedor,CodigoProveedor,CodigoOrganismo,CodigoOrganismoPublico,8012,22784,4670,58.28756864702945,775,1035,769,99.22580645161291
+2024-12,CodigoProveedor,CodigoProveedor,CodigoOrganismo,CodigoOrganismoPublico,9418,22470,5029,53.39774899129327,826,1041,821,99.39467312348668

@@ -1,0 +1,15 @@
+periodo,tabla,incluida,lic_id_col,sector_col,tiene_codigomoneda,tiene_moneda_adquisicion,tiene_moneda_oferta,motivo_exclusion
+2024-09,stg_lic_2024_09,True,codigoexterno,sector,True,True,True,
+2024-10,stg_lic_2024_10,True,codigoexterno,sector,True,True,True,
+2024-11,stg_lic_2024_11,True,codigoexterno,sector,True,True,True,
+2024-12,stg_lic_2024_12,True,codigoexterno,sector,True,True,True,
+2025-01,stg_lic_2025_01,False,,,False,False,False,sin_id_lic;sin_moneda;sin_sector
+2025-02,stg_lic_2025_02,True,codigoexterno,sector,True,True,True,
+2025-03,stg_lic_2025_03,True,codigoexterno,sector,True,True,True,
+2025-04,stg_lic_2025_04,True,codigoexterno,sector,True,True,True,
+2025-05,stg_lic_2025_05,True,codigoexterno,sector,True,True,True,
+2025-06,stg_lic_2025_06,True,codigoexterno,sector,True,True,True,
+2025-07,stg_lic_2025_07,True,codigoexterno,sector,True,True,True,
+2025-08,stg_lic_2025_08,True,codigoexterno,sector,True,True,True,
+2025-09,stg_lic_2025_09,True,codigoexterno,sector,True,True,True,
+2025-10,stg_lic_2025_10,True,codigoexterno,sector,True,True,True,

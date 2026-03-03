@@ -1,0 +1,5 @@
+INFO: WORKDIR=/home/engineer/Documents/Proyectos/TFM_UCM/RELEASE/chilecompra-platform
+INFO: EVIDENCE_DIR=docs/evidence/demo_run/2026-03-02_004029
+INFO: PROJECT_NAME=tfm_demo
+INFO: PERIOD=2024-09
+ERROR: No existe docker-compose.portable.demo.yml. Ejecuta desde el root del repo.

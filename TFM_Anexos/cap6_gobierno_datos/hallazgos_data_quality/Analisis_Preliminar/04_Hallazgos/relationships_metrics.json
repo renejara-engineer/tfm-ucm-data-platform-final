@@ -1,0 +1,43 @@
+{
+  "org": {
+    "n_unique": 1179,
+    "columns_detected": {
+      "code_col": "Código",
+      "name_col": "Nombre de la institución",
+      "columns": [
+        "Nombre de la institución",
+        "Sector",
+        "Código",
+        "Id. Sector"
+      ]
+    }
+  },
+  "lic": {
+    "n_unique": 1087,
+    "cols_detected": {
+      "code_col": "CodigoOrganismo",
+      "name_col": "NombreOrganismo"
+    }
+  },
+  "oc": {
+    "n_unique": 1160,
+    "cols_detected": {
+      "code_col": "CodigoOrganismoPublico",
+      "name_col": "CodigoOrganismoPublico"
+    }
+  },
+  "intersections": {
+    "lic_org": {
+      "n": 1077,
+      "ratio_lic": 0.9908003679852806
+    },
+    "oc_org": {
+      "n": 1139,
+      "ratio_oc": 0.9818965517241379
+    },
+    "lic_oc": {
+      "n": 1083,
+      "ratio_lic": 0.9963201471941122
+    }
+  }
+}

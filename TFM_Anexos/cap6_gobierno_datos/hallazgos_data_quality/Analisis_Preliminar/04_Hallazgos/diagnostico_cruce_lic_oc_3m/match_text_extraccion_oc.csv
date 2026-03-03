@@ -1,0 +1,4 @@
+mes,text_cols_used,extracted_codes_unique,matches_with_LIC,pct_match_over_extracted,ejemplos_match
+2024-10,"['Nombre', 'Descripcion/Obervaciones', 'DescripcionTipoOC', 'NombreProveedor', 'NombreroductoGenerico', 'EspecificacionComprador']",36804,0,0.0,[]
+2024-11,"['Nombre', 'Descripcion/Obervaciones', 'DescripcionTipoOC', 'NombreProveedor', 'NombreroductoGenerico', 'EspecificacionComprador']",36214,0,0.0,[]
+2024-12,"['Nombre', 'Descripcion/Obervaciones', 'DescripcionTipoOC', 'NombreProveedor', 'NombreroductoGenerico', 'EspecificacionComprador']",35400,0,0.0,[]

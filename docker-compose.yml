@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+
+  chile-pg:
+    image: postgres:15-alpine
+    container_name: "${COMPOSE_PROJECT_NAME}-chile-pg-1"
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - chile_pg_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - tfm_net
+
+  etl:
+    image: ${COMPOSE_PROJECT_NAME}-etl
+    container_name: "${COMPOSE_PROJECT_NAME}-etl-1"
+    build:
+      context: .
+      dockerfile: etl/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - chile-pg
+    environment:
+      DB_HOST: ${CHILE_PG_HOST}
+      DB_PORT: ${CHILE_PG_PORT}
+      DB_USER: ${CHILE_PG_USER}
+      DB_PASS: ${CHILE_PG_PASSWORD}
+      DB_NAME: ${CHILE_PG_DB}
+      DATA_LAKE_ROOT:  ${DATA_LAKE_ROOT} 
+      ETL_LOG_LEVEL: ${ETL_LOG_LEVEL}
+    ports:
+      - "${ETL_PORT}:8000"
+    networks:
+      - tfm_net
+    volumes:
+      - ${DATA_LAKE_HOST}:${DATA_LAKE_ROOT}:rw
+     
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: "${COMPOSE_PROJECT_NAME}-pgadmin-1"
+    restart: unless-stopped
+    depends_on:
+      - chile-pg
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "${PGADMIN_PORT}:80"
+    networks:
+      - tfm_net
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  chile_pg_data:
+  pgadmin_data:
+
+networks:
+  tfm_net:

@@ -1,0 +1,19 @@
+total 32
+drwxrwxr-x 7 1000 1000 4096 Feb 16 00:34 .
+drwxr-xr-x 1 root root 4096 Feb 16 02:27 ..
+drwxrwxr-x 6 1000 1000 4096 Feb 15 06:05 01_RAW
+drwxrwxr-x 2 1000 1000 4096 Feb 16 00:56 02_CLEAN
+drwxrwxr-x 4 1000 1000 4096 Feb 16 00:35 02_INBOX
+drwxrwxr-x 2 1000 1000 4096 Feb 16 00:56 03_MART
+drwxrwxr-x 2 1000 1000 4096 Feb 16 00:56 04_Metadata
+-rw-rw-r-- 1 1000 1000   88 Feb 15 04:13 README.md
+/data_lake/04_Metadata/.gitkeep
+/data_lake/02_INBOX/LIC/2024-09/LIC_2024-09.csv
+/data_lake/02_INBOX/OC/2024-09/OC_2024-09.csv
+/data_lake/README.md
+/data_lake/01_RAW/OCDS/.gitkeep
+/data_lake/01_RAW/OrganismosCompradores/.gitkeep
+/data_lake/01_RAW/LIC/.gitkeep
+/data_lake/01_RAW/OC/.gitkeep
+/data_lake/03_MART/.gitkeep
+/data_lake/02_CLEAN/.gitkeep

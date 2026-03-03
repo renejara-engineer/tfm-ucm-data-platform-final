@@ -1,0 +1,29 @@
+{
+  "ts": "2025-12-15T15:50:15",
+  "duplicados": {
+    "nota": "Duplicados técnicos intra-mes reportados en *_file_summary.csv.",
+    "inter_month_enabled": true
+  },
+  "relaciones": {
+    "lic_org": {
+      "n": 1077,
+      "ratio_lic": 0.9908003679852806
+    },
+    "oc_org": {
+      "n": 1139,
+      "ratio_oc": 0.9818965517241379
+    },
+    "lic_oc": {
+      "n": 1083,
+      "ratio_lic": 0.9963201471941122
+    }
+  },
+  "quality_gates": {
+    "failed_files": 0
+  },
+  "recomendaciones": [
+    "Usar STAGING en PostgreSQL con tipado TEXT, y tipar/normalizar en CLEAN.",
+    "No eliminar repetición inter-mes sin regla de negocio; reportar persistencias.",
+    "Normalizar códigos antes de evaluar relaciones."
+  ]
+}

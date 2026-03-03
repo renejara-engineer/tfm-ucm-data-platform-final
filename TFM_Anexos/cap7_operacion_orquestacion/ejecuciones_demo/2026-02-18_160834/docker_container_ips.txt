@@ -1,0 +1,5 @@
+tfm_demo-chile-pg-1 172.21.0.4
+tfm_demo-etl-1 172.21.0.6
+tfm_demo-n8n-1 172.21.0.3
+tfm_demo-n8n-db-1 172.21.0.2
+tfm_demo-pgadmin-1 172.21.0.5

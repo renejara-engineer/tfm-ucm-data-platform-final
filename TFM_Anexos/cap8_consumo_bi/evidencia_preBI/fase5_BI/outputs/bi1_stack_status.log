@@ -1,0 +1,98 @@
+
+== Docker recursos ==
+NAME                  DRIVER    SCOPE
+tfm-net               bridge    local
+VOLUME NAME                                    DRIVER    SCOPE
+tfm-core_pgadmin_data                          local     local
+tfm-n8n_n8n_data                               local     local
+tfm-n8n_n8n_db_data                            local     local
+tfm-stack_chile_pg_data                        local     local
+tfm_chile_pg_data                              local     local
+tfm_n8n_data                                   local     local
+tfm_n8n_db_data                                local     local
+tfm_pgadmin_data                               local     local
+------------------------------------------------------------------------------------------------------------------------
+
+== Contenedores del stack (proyecto: tfm) ==
+NAME             IMAGE                   COMMAND                  SERVICE    CREATED         STATUS                   PORTS
+tfm-chile-pg-1   postgres:15-alpine      "docker-entrypoint.s…"   chile-pg   22 hours ago    Up 6 minutes (healthy)   0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp
+tfm-etl-1        tfm-etl                 "python -u app.py"       etl        6 minutes ago   Up Less than a second    0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+tfm-pgadmin-1    dpage/pgadmin4:latest   "/entrypoint.sh"         pgadmin    22 hours ago    Up 6 minutes             443/tcp, 0.0.0.0:8082->80/tcp, [::]:8082->80/tcp
+------------------------------------------------------------------------------------------------------------------------
+[OK]  Contenedor Postgres detectado: tfm-chile-pg-1
+[OK]  Contenedor ETL detectado     : tfm-etl-1
+------------------------------------------------------------------------------------------------------------------------
+
+== Salud de Postgres (pg_isready) ==
+/var/run/postgresql:5432 - accepting connections
+------------------------------------------------------------------------------------------------------------------------
+
+== Versión de Postgres (SELECT version()) ==
+                                         version                                          
+------------------------------------------------------------------------------------------
+ PostgreSQL 15.14 on x86_64-pc-linux-musl, compiled by gcc (Alpine 14.2.0) 14.2.0, 64-bit
+(1 row)
+
+------------------------------------------------------------------------------------------------------------------------
+
+== Esquema base (\dt en chilecompra) ==
+               List of relations
+ Schema |      Name       | Type  |   Owner    
+--------+-----------------+-------+------------
+ public | licitaciones    | table | chile_user
+ public | stg_lic_2024_09 | table | chile_user
+ public | stg_lic_2024_10 | table | chile_user
+ public | stg_lic_2024_11 | table | chile_user
+ public | stg_lic_2024_12 | table | chile_user
+ public | stg_lic_2025_01 | table | chile_user
+ public | stg_lic_2025_02 | table | chile_user
+ public | stg_lic_2025_03 | table | chile_user
+ public | stg_lic_2025_04 | table | chile_user
+ public | stg_lic_2025_05 | table | chile_user
+ public | stg_lic_2025_06 | table | chile_user
+ public | stg_lic_2025_07 | table | chile_user
+ public | stg_lic_2025_08 | table | chile_user
+ public | stg_lic_2025_09 | table | chile_user
+ public | stg_lic_2025_10 | table | chile_user
+ public | stg_oc_2024_09  | table | chile_user
+ public | stg_oc_2024_10  | table | chile_user
+ public | stg_oc_2024_11  | table | chile_user
+ public | stg_oc_2024_12  | table | chile_user
+ public | stg_oc_2025_01  | table | chile_user
+ public | stg_oc_2025_02  | table | chile_user
+ public | stg_oc_2025_03  | table | chile_user
+ public | stg_oc_2025_04  | table | chile_user
+ public | stg_oc_2025_05  | table | chile_user
+ public | stg_oc_2025_06  | table | chile_user
+ public | stg_oc_2025_07  | table | chile_user
+ public | stg_oc_2025_08  | table | chile_user
+ public | stg_oc_2025_09  | table | chile_user
+ public | stg_oc_2025_10  | table | chile_user
+(29 rows)
+
+------------------------------------------------------------------------------------------------------------------------
+
+== Salud del ETL (GET /health) ==
+
+------------------------------------------------------------------------------------------------------------------------
+
+== Últimas líneas de logs ==
+[etl]
+
+[chile-pg]
+
+PostgreSQL Database directory appears to contain a database; Skipping initialization
+
+
+PostgreSQL Database directory appears to contain a database; Skipping initialization
+
+------------------------------------------------------------------------------------------------------------------------
+
+== Checklist rápido ==
+  [ ] ETL /health responde OK
+  [x] Postgres operativo (pg_isready)
+  [x] Tablas iniciales visibles en \dt
+  [x] Volumen de datos presente: tfm-stack_chile_pg_data
+  [x] Red compartida: tfm-net
+------------------------------------------------------------------------------------------------------------------------
+[INFO] Consejo: para levantar el stack: ./02-tfm.sh up

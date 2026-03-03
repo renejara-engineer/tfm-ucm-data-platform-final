@@ -1,0 +1,1 @@
+[{"Type":"volume","Name":"tfm-n8n_n8n_db_data","Source":"/var/lib/docker/volumes/tfm-n8n_n8n_db_data/_data","Destination":"/var/lib/postgresql/data","Driver":"local","Mode":"rw","RW":true,"Propagation":""}]

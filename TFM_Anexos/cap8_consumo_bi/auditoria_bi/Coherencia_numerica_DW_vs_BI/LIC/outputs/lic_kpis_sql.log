@@ -1,0 +1,142 @@
+LIC KPIs SQL EVIDENCE - 2026-02-12 00:06:05
+------------------------------------------------------------
+
+## KPI: LIC_Conteo_Global
+SELECT COUNT(DISTINCT licitacion_bk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2;
+  valor
+4633081
+
+## KPI: LIC_Proveedores_Distintos_Global
+SELECT COUNT(DISTINCT proveedor_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2;
+ valor
+ 19518
+
+## KPI: LIC_Productos_ONU_Distintos_Global
+SELECT COUNT(DISTINCT producto_onu_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2;
+ valor
+  8319
+
+## KPI: LIC_Conteo | moneda: CLP
+SELECT COUNT(DISTINCT licitacion_bk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'CLP' ;
+  valor
+4620401
+
+## KPI: LIC_Monto_Estimado | moneda: CLP
+SELECT COALESCE(SUM(mx),0)::numeric(38,0) AS valor FROM (SELECT MAX(monto_estimado) AS mx FROM dw_sem.v_fact_licitaciones_sem_v2  WHERE 1=1 AND moneda_norm = 'CLP'  AND flag_monto_estimado_anom = 0 AND flag_moneda_missing = 0 AND flag_moneda_unknown = 0  GROUP BY licitacion_sk) t;
+       valor
+3.723090e+14
+
+## KPI: LIC_Monto_Adjudicado | moneda: CLP
+SELECT COALESCE(SUM(monto_adjudicado),0)::numeric(38,0) AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'CLP' ;
+       valor
+4.690131e+14
+
+## KPI: LIC_Proveedores_Distintos | moneda: CLP
+SELECT COUNT(DISTINCT proveedor_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'CLP' ;
+ valor
+ 19425
+
+## KPI: LIC_Productos_ONU_Distintos | moneda: CLP
+SELECT COUNT(DISTINCT producto_onu_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'CLP' ;
+ valor
+  8304
+
+## KPI: LIC_Conteo | moneda: USD
+SELECT COUNT(DISTINCT licitacion_bk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'USD' ;
+ valor
+  7329
+
+## KPI: LIC_Monto_Estimado | moneda: USD
+SELECT COALESCE(SUM(mx),0)::numeric(38,0) AS valor FROM (SELECT MAX(monto_estimado) AS mx FROM dw_sem.v_fact_licitaciones_sem_v2  WHERE 1=1 AND moneda_norm = 'USD'  AND flag_monto_estimado_anom = 0 AND flag_moneda_missing = 0 AND flag_moneda_unknown = 0  GROUP BY licitacion_sk) t;
+       valor
+5.876034e+11
+
+## KPI: LIC_Monto_Adjudicado | moneda: USD
+SELECT COALESCE(SUM(monto_adjudicado),0)::numeric(38,0) AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'USD' ;
+       valor
+1.633984e+10
+
+## KPI: LIC_Proveedores_Distintos | moneda: USD
+SELECT COUNT(DISTINCT proveedor_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'USD' ;
+ valor
+   567
+
+## KPI: LIC_Productos_ONU_Distintos | moneda: USD
+SELECT COUNT(DISTINCT producto_onu_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'USD' ;
+ valor
+   250
+
+## KPI: LIC_Conteo | moneda: EUR
+SELECT COUNT(DISTINCT licitacion_bk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'EUR' ;
+ valor
+     0
+
+## KPI: LIC_Monto_Estimado | moneda: EUR
+SELECT COALESCE(SUM(mx),0)::numeric(38,0) AS valor FROM (SELECT MAX(monto_estimado) AS mx FROM dw_sem.v_fact_licitaciones_sem_v2  WHERE 1=1 AND moneda_norm = 'EUR'  AND flag_monto_estimado_anom = 0 AND flag_moneda_missing = 0 AND flag_moneda_unknown = 0  GROUP BY licitacion_sk) t;
+ valor
+   0.0
+
+## KPI: LIC_Monto_Adjudicado | moneda: EUR
+SELECT COALESCE(SUM(monto_adjudicado),0)::numeric(38,0) AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'EUR' ;
+ valor
+   0.0
+
+## KPI: LIC_Proveedores_Distintos | moneda: EUR
+SELECT COUNT(DISTINCT proveedor_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'EUR' ;
+ valor
+     0
+
+## KPI: LIC_Productos_ONU_Distintos | moneda: EUR
+SELECT COUNT(DISTINCT producto_onu_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'EUR' ;
+ valor
+     0
+
+## KPI: LIC_Conteo | moneda: CLF
+SELECT COUNT(DISTINCT licitacion_bk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'CLF' ;
+ valor
+  4761
+
+## KPI: LIC_Monto_Estimado | moneda: CLF
+SELECT COALESCE(SUM(mx),0)::numeric(38,0) AS valor FROM (SELECT MAX(monto_estimado) AS mx FROM dw_sem.v_fact_licitaciones_sem_v2  WHERE 1=1 AND moneda_norm = 'CLF'  AND flag_monto_estimado_anom = 0 AND flag_moneda_missing = 0 AND flag_moneda_unknown = 0  GROUP BY licitacion_sk) t;
+       valor
+5.083297e+10
+
+## KPI: LIC_Monto_Adjudicado | moneda: CLF
+SELECT COALESCE(SUM(monto_adjudicado),0)::numeric(38,0) AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'CLF' ;
+       valor
+1.119013e+11
+
+## KPI: LIC_Proveedores_Distintos | moneda: CLF
+SELECT COUNT(DISTINCT proveedor_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'CLF' ;
+ valor
+  1033
+
+## KPI: LIC_Productos_ONU_Distintos | moneda: CLF
+SELECT COUNT(DISTINCT producto_onu_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = 'CLF' ;
+ valor
+   322
+
+## KPI: LIC_Conteo | moneda: Moneda revisar
+SELECT COUNT(DISTINCT licitacion_bk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda = 'Moneda revisar' ;
+ valor
+   590
+
+## KPI: LIC_Monto_Estimado | moneda: Moneda revisar
+SELECT COALESCE(SUM(mx),0)::numeric(38,0) AS valor FROM (SELECT MAX(monto_estimado) AS mx FROM dw_sem.v_fact_licitaciones_sem_v2  WHERE 1=1 AND moneda = 'Moneda revisar'  AND flag_monto_estimado_anom = 0 AND flag_moneda_missing = 0 AND flag_moneda_unknown = 0  GROUP BY licitacion_sk) t;
+ valor
+   0.0
+
+## KPI: LIC_Monto_Adjudicado | moneda: Moneda revisar
+SELECT COALESCE(SUM(monto_adjudicado),0)::numeric(38,0) AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda = 'Moneda revisar' ;
+       valor
+1645426721.0
+
+## KPI: LIC_Proveedores_Distintos | moneda: Moneda revisar
+SELECT COUNT(DISTINCT proveedor_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda = 'Moneda revisar' ;
+ valor
+   197
+
+## KPI: LIC_Productos_ONU_Distintos | moneda: Moneda revisar
+SELECT COUNT(DISTINCT producto_onu_sk)::bigint AS valor FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda = 'Moneda revisar' ;
+ valor
+    76

@@ -1,0 +1,4 @@
+ periodo | n_dup_groups 
+---------+--------------
+(0 rows)
+

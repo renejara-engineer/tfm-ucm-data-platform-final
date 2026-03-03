@@ -1,0 +1,11 @@
+{
+  "ts": "2025-12-15T11:58:08",
+  "mode": "full",
+  "base_dir": "/home/engineer/Documents/Proyectos/TFM_CSV_Biblioteca_Readme",
+  "chunksize": 50000,
+  "max_files": null,
+  "run_inter_month_hash": true,
+  "python": "3.13.5",
+  "pandas": "2.2.3",
+  "duckdb_available": true
+}

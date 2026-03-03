@@ -1,0 +1,76 @@
+name: tfm-n8n
+services:
+  n8n:
+    depends_on:
+      n8n-db:
+        condition: service_healthy
+        required: true
+    environment:
+      DB_POSTGRESDB_DATABASE: n8n
+      DB_POSTGRESDB_HOST: n8n-db
+      DB_POSTGRESDB_PASSWORD: ONbfvJ6pUoyBaTWrynIihCdWKGfHAk
+      DB_POSTGRESDB_PORT: "5432"
+      DB_POSTGRESDB_SCHEMA: public
+      DB_POSTGRESDB_USER: n8n
+      DB_TYPE: postgresdb
+      GENERIC_TIMEZONE: America/Santiago
+      N8N_BASIC_AUTH_ACTIVE: "true"
+      N8N_BASIC_AUTH_PASSWORD: cepa_n8n*2025
+      N8N_BASIC_AUTH_USER: admin
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      N8N_EDITOR_BASE_URL: http://localhost:5678
+      N8N_ENCRYPTION_KEY: 2hoqe1djgsxDegm0CqjpLhpOtJyNGUShh5S0xyDszNrsd1iNw5Qbr88rlwHTN8p2
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+      N8N_GIT_NODE_DISABLE_BARE_REPOS: "true"
+      N8N_HOST: localhost
+      N8N_PORT: "5678"
+      N8N_RUNNERS_ENABLED: "true"
+      WEBHOOK_URL: http://localhost:5678
+    image: n8nio/n8n:1.78.1
+    networks:
+      n8n_default: null
+      tfm-net: null
+    ports:
+      - mode: ingress
+        target: 5678
+        published: "5678"
+        protocol: tcp
+    restart: unless-stopped
+    user: 1000:1000
+    volumes:
+      - type: volume
+        source: n8n_data
+        target: /home/node/.n8n
+        volume: {}
+  n8n-db:
+    environment:
+      POSTGRES_DB: n8n
+      POSTGRES_PASSWORD: ONbfvJ6pUoyBaTWrynIihCdWKGfHAk
+      POSTGRES_USER: n8n
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      timeout: 5s
+      interval: 5s
+      retries: 20
+    image: postgres:15-alpine
+    networks:
+      tfm-net: null
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: n8n_db_data
+        target: /var/lib/postgresql/data
+        volume: {}
+networks:
+  n8n_default:
+    name: tfm-n8n_n8n_default
+  tfm-net:
+    name: tfm-net
+    external: true
+volumes:
+  n8n_data:
+    name: tfm-n8n_n8n_data
+  n8n_db_data:
+    name: tfm-n8n_n8n_db_data

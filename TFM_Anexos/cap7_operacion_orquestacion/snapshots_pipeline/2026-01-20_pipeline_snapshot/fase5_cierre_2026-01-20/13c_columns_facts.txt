@@ -1,0 +1,37 @@
+     table_name      |     column_name      |          data_type          
+---------------------+----------------------+-----------------------------
+ fact_licitaciones   | licitacion_sk        | bigint
+ fact_licitaciones   | licitacion_bk        | text
+ fact_licitaciones   | fecha_publicacion_sk | integer
+ fact_licitaciones   | fecha_cierre_sk      | integer
+ fact_licitaciones   | organismo_sk         | integer
+ fact_licitaciones   | proveedor_sk         | integer
+ fact_licitaciones   | producto_onu_sk      | integer
+ fact_licitaciones   | monto_estimado       | numeric
+ fact_licitaciones   | monto_adjudicado     | numeric
+ fact_licitaciones   | cantidad_oferentes   | integer
+ fact_licitaciones   | cantidad_items       | integer
+ fact_licitaciones   | estado_licitacion    | text
+ fact_licitaciones   | tipo_adquisicion     | text
+ fact_licitaciones   | moneda               | text
+ fact_licitaciones   | periodo              | text
+ fact_licitaciones   | source_file          | text
+ fact_licitaciones   | ingested_at          | timestamp without time zone
+ fact_ordenes_compra | orden_compra_sk      | bigint
+ fact_ordenes_compra | orden_compra_bk      | text
+ fact_ordenes_compra | fecha_creacion_sk    | integer
+ fact_ordenes_compra | fecha_aceptacion_sk  | integer
+ fact_ordenes_compra | organismo_sk         | integer
+ fact_ordenes_compra | proveedor_sk         | integer
+ fact_ordenes_compra | producto_onu_sk      | integer
+ fact_ordenes_compra | monto_total          | numeric
+ fact_ordenes_compra | cantidad_total       | numeric
+ fact_ordenes_compra | cantidad_items       | integer
+ fact_ordenes_compra | estado_oc            | text
+ fact_ordenes_compra | tipo_oc              | text
+ fact_ordenes_compra | moneda               | text
+ fact_ordenes_compra | periodo              | text
+ fact_ordenes_compra | source_file          | text
+ fact_ordenes_compra | ingested_at          | timestamp without time zone
+(33 rows)
+

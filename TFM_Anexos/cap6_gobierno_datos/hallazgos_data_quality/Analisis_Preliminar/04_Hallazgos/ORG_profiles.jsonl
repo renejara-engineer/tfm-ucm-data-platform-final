@@ -1,0 +1,1 @@
+{"dataset": "ORG", "file": "2025-10-17_Listado.csv", "rows": 1179, "columns_n": 4, "columns": ["Nombre de la institución", "Sector", "Código", "Id. Sector"], "null_pct_top": {"Sector": 2.7142, "Nombre de la institución": 0.0, "Código": 0.0, "Id. Sector": 0.0}, "sep_used": ";", "encoding_used": "utf-8", "dup_rows_intra_month": null, "distinct_rowhashes": null}

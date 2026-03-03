@@ -1,0 +1,8 @@
+{
+  "nota": "Indicadores de alto nivel se habilitan tras carga a DW (fuera del alcance de este script).",
+  "ejemplos": [
+    "volumen_compras_por_mes",
+    "monto_por_organismo",
+    "top_proveedores"
+  ]
+}

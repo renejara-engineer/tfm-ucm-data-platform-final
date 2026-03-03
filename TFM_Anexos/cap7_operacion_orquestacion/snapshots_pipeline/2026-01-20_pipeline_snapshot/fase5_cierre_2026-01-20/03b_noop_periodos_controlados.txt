@@ -1,0 +1,6 @@
+ periodo |     decision     |   reason_code   |   reason_text   |                         lic_file                         |                        oc_file                         | lic_cols | oc_bytes  | oc_lines |             ts             
+---------+------------------+-----------------+-----------------+----------------------------------------------------------+--------------------------------------------------------+----------+-----------+----------+----------------------------
+ 2025-01 | EXCEPCION_FUENTE | LIC_SCHEMA_ANOM | LIC_SCHEMA_ANOM | /data/ChileCompraDL/02_INBOX/LIC/2025-01/LIC_2025-01.csv | /data/ChileCompraDL/02_INBOX/OC/2025-01/OC_2025-01.csv |        4 | 613494186 |  2006096 | 2026-01-20 16:14:30.483819
+ 2025-03 | NO_OP            | OC_SIZE_ANOM    | OC_SIZE_ANOM    | /data/ChileCompraDL/02_INBOX/LIC/2025-03/LIC_2025-03.csv | /data/ChileCompraDL/02_INBOX/OC/2025-03/OC_2025-03.csv |      105 |     13179 |      187 | 2026-01-20 16:06:56.960405
+(2 rows)
+

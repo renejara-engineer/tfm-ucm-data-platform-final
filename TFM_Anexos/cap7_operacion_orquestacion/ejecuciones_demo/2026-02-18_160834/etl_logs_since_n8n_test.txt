@@ -1,0 +1,2 @@
+etl-1  | INFO:     172.21.0.1:56968 - "GET /health HTTP/1.1" 200 OK
+etl-1  | INFO:     172.21.0.3:37924 - "GET /health HTTP/1.1" 200 OK

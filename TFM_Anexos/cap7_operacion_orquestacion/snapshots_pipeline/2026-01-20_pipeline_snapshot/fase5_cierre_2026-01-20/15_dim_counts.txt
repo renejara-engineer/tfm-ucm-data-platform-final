@@ -1,0 +1,8 @@
+        tabla        | filas 
+---------------------+-------
+ dw.dim_fecha        |   457
+ dw.dim_organismo    |   846
+ dw.dim_proveedor    | 39205
+ dw.dim_producto_onu |  9744
+(4 rows)
+

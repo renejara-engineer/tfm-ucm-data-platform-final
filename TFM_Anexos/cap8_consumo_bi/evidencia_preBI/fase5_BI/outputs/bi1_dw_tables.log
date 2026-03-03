@@ -1,0 +1,26 @@
+                  List of relations
+ Schema |          Name          | Type  |   Owner    
+--------+------------------------+-------+------------
+ dw     | dim_fecha              | table | chile_user
+ dw     | dim_organismo          | table | chile_user
+ dw     | dim_producto_onu       | table | chile_user
+ dw     | dim_proveedor          | table | chile_user
+ dw     | etl_control_cargas     | table | chile_user
+ dw     | etl_decisiones_periodo | table | chile_user
+ dw     | fact_licitaciones      | table | chile_user
+ dw     | fact_ordenes_compra    | table | chile_user
+(8 rows)
+
+                  List of relations
+ Schema |          Name          | Type  |   Owner    
+--------+------------------------+-------+------------
+ dw     | dim_fecha              | table | chile_user
+ dw     | dim_organismo          | table | chile_user
+ dw     | dim_producto_onu       | table | chile_user
+ dw     | dim_proveedor          | table | chile_user
+ dw     | etl_control_cargas     | table | chile_user
+ dw     | etl_decisiones_periodo | table | chile_user
+ dw     | fact_licitaciones      | table | chile_user
+ dw     | fact_ordenes_compra    | table | chile_user
+(8 rows)
+

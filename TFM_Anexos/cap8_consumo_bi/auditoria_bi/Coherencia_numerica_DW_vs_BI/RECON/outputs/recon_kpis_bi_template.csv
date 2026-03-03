@@ -1,0 +1,33 @@
+kpi,kpi_type,grain,source_view,moneda_norm,valor_pbi,notas
+LIC_Conteo,count,global,dw_sem.v_fact_licitaciones_sem_v2,,4633081,Valor tomado desde matriz RECON. Global (no depende de moneda_norm).
+OC_Conteo_etiqueta,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLP,4531314,OC Conteo por moneda_norm (etiqueta tarjeta).
+OC_Conteo_etiqueta,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,USD,12744,OC Conteo por moneda_norm (etiqueta tarjeta).
+OC_Conteo_etiqueta,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,EUR,35,OC Conteo por moneda_norm (etiqueta tarjeta).
+OC_Conteo_etiqueta,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLF,11901,OC Conteo por moneda_norm (etiqueta tarjeta).
+OC_Conteo_etiqueta,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,UTM,818,OC Conteo por moneda_norm (etiqueta tarjeta).
+OC_Conteo_por_moneda,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLP,4531314,Derivado: mismo valor que tarjeta OC_Conteo_etiqueta bajo slicer moneda_norm.
+OC_Conteo_por_moneda,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,USD,12744,Derivado: mismo valor que tarjeta OC_Conteo_etiqueta bajo slicer moneda_norm.
+OC_Conteo_por_moneda,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,EUR,35,Derivado: mismo valor que tarjeta OC_Conteo_etiqueta bajo slicer moneda_norm.
+OC_Conteo_por_moneda,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLF,11901,Derivado: mismo valor que tarjeta OC_Conteo_etiqueta bajo slicer moneda_norm.
+OC_Conteo_por_moneda,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,UTM,818,Derivado: mismo valor que tarjeta OC_Conteo_etiqueta bajo slicer moneda_norm.
+OC_Conteo_Total_tabla,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLP,4531314,OC Conteo por moneda_norm (tabla).
+OC_Conteo_Total_tabla,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,USD,12744,OC Conteo por moneda_norm (tabla).
+OC_Conteo_Total_tabla,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,EUR,35,OC Conteo por moneda_norm (tabla).
+OC_Conteo_Total_tabla,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLF,11901,OC Conteo por moneda_norm (tabla).
+OC_Conteo_Total_tabla,count,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,UTM,818,OC Conteo por moneda_norm (tabla).
+OC_Conteo_Total_tabla,count,global,dw_sem.v_fact_ordenes_compra_sem_v2,,4556812,Derivado: suma de conteos por moneda_norm (slicer single-select).
+OC_Monto_Total_tabla,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLP,27651861086540.85,Monto total OC por moneda_norm (tabla).
+OC_Monto_Total_tabla,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,USD,956248949,Monto total OC por moneda_norm (tabla).
+OC_Monto_Total_tabla,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,EUR,2906298.80,Monto total OC por moneda_norm (tabla).
+OC_Monto_Total_tabla,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLF,57306988.51,Monto total OC por moneda_norm (tabla).
+OC_Monto_Total_tabla,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,UTM,10576055,Monto total OC por moneda_norm (tabla).
+OC_Monto_Total_etiqueta,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLP,27651861086540.85,Monto total OC por moneda_norm (tarjeta etiqueta).
+OC_Monto_Total_etiqueta,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,USD,956248949,Monto total OC por moneda_norm (tarjeta etiqueta).
+OC_Monto_Total_etiqueta,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,EUR,2906298.80,Monto total OC por moneda_norm (tarjeta etiqueta).
+OC_Monto_Total_etiqueta,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLF,57306988.51,Monto total OC por moneda_norm (tarjeta etiqueta).
+OC_Monto_Total_etiqueta,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,UTM,10576055,Monto total OC por moneda_norm (tarjeta etiqueta).
+OC_Monto_Total_fecha_aceptacion_valida,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLP,24497269082853,Monto total OC (fecha aceptación válida) por moneda_norm.
+OC_Monto_Total_fecha_aceptacion_valida,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,USD,745919455,Monto total OC (fecha aceptación válida) por moneda_norm.
+OC_Monto_Total_fecha_aceptacion_valida,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,EUR,2882762,Monto total OC (fecha aceptación válida) por moneda_norm.
+OC_Monto_Total_fecha_aceptacion_valida,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,CLF,33137707,Monto total OC (fecha aceptación válida) por moneda_norm.
+OC_Monto_Total_fecha_aceptacion_valida,amount,moneda,dw_sem.v_fact_ordenes_compra_sem_v2,UTM,9754498,Monto total OC (fecha aceptación válida) por moneda_norm.

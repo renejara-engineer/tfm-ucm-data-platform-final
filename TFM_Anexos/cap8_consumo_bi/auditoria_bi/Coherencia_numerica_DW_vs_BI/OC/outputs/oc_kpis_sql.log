@@ -1,0 +1,44 @@
+OC KPIs SQL EVIDENCE - 2026-02-12 00:22:12
+------------------------------------------------------------
+
+## Vista
+dw_sem.v_fact_ordenes_compra_sem_v2
+
+## MONEDA_FIELD
+moneda
+
+## Diagnóstico moneda vs moneda_norm
+moneda moneda_norm  n_rows  n_oc_bk  sum_monto_total
+   CLP         CLP 4531314  4531314     2.765186e+13
+   USD         USD   12744    12744     9.562489e+08
+   CLF         CLF   11901    11901     5.730699e+07
+   UTM         UTM     818      818     1.057605e+07
+   EUR         EUR      35       35     2.906299e+06
+
+## KPIs SQL (tabla larga)
+                       kpi moneda_val    valor_sql
+                 OC_Conteo        CLP 4.531314e+06
+            OC_Monto_Total        CLP 2.765186e+13
+  OC_Proveedores_Distintos        CLP 3.755000e+04
+OC_Productos_ONU_Distintos        CLP 9.716000e+03
+   OC_Organismos_Distintos        CLP 8.450000e+02
+                 OC_Conteo        USD 1.274400e+04
+            OC_Monto_Total        USD 9.562489e+08
+  OC_Proveedores_Distintos        USD 6.200000e+02
+OC_Productos_ONU_Distintos        USD 5.250000e+02
+   OC_Organismos_Distintos        USD 6.070000e+02
+                 OC_Conteo        EUR 3.500000e+01
+            OC_Monto_Total        EUR 2.906299e+06
+  OC_Proveedores_Distintos        EUR 1.800000e+01
+OC_Productos_ONU_Distintos        EUR 2.000000e+01
+   OC_Organismos_Distintos        EUR 1.500000e+01
+                 OC_Conteo        CLF 1.190100e+04
+            OC_Monto_Total        CLF 5.730699e+07
+  OC_Proveedores_Distintos        CLF 1.114000e+03
+OC_Productos_ONU_Distintos        CLF 6.880000e+02
+   OC_Organismos_Distintos        CLF 5.730000e+02
+                 OC_Conteo        UTM 8.180000e+02
+            OC_Monto_Total        UTM 1.057605e+07
+  OC_Proveedores_Distintos        UTM 1.290000e+02
+OC_Productos_ONU_Distintos        UTM 1.300000e+02
+   OC_Organismos_Distintos        UTM 5.000000e+01

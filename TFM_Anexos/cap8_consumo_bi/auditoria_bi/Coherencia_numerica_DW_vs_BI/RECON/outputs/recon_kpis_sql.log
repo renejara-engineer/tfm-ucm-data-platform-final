@@ -1,0 +1,95 @@
+RECON KPIs SQL EVIDENCE - 2026-02-12 15:55:42
+--------------------------------------------------------------------------------
+PGHOST=localhost PGPORT=5433 PGDATABASE=chilecompra PGUSER=chile_user
+OUT_DIR=/home/engineer/Documents/Proyectos/TFM/docs/evidence/fase7_auditoria_BI/Evidencia_BI_vs_SQL/RECON/outputs
+--------------------------------------------------------------------------------
+
+## KPI: LIC_Conteo
+source_view: dw_sem.v_fact_licitaciones_sem_v2
+SELECT COUNT(*)::bigint AS valor
+            FROM dw_sem.v_fact_licitaciones_sem_v2;
+  valor
+4633081
+
+## KPI: OC_Conteo_Total_tabla
+source_view: dw_sem.v_fact_ordenes_compra_sem_v2
+SELECT COUNT(*)::bigint AS valor
+            FROM dw_sem.v_fact_ordenes_compra_sem_v2;
+  valor
+4556812
+
+## KPI: OC_Conteo_por_moneda
+source_view: dw_sem.v_fact_ordenes_compra_sem_v2
+SELECT
+                moneda_norm,
+                COUNT(*)::bigint AS valor
+            FROM dw_sem.v_fact_ordenes_compra_sem_v2
+            GROUP BY moneda_norm
+            ORDER BY moneda_norm;
+moneda_norm   valor
+        CLF   11901
+        CLP 4531314
+        EUR      35
+        USD   12744
+        UTM     818
+
+## KPI: OC_Conteo_etiqueta
+source_view: dw_sem.v_fact_ordenes_compra_sem_v2
+SELECT
+                moneda_norm,
+                COUNT(*)::bigint AS valor
+            FROM dw_sem.v_fact_ordenes_compra_sem_v2
+            GROUP BY moneda_norm
+            ORDER BY moneda_norm;
+moneda_norm   valor
+        CLF   11901
+        CLP 4531314
+        EUR      35
+        USD   12744
+        UTM     818
+
+## KPI: OC_Monto_Total_tabla
+source_view: dw_sem.v_fact_ordenes_compra_sem_v2
+SELECT
+                moneda_norm,
+                SUM(monto_total)::numeric(38,0)::text AS valor
+            FROM dw_sem.v_fact_ordenes_compra_sem_v2
+            GROUP BY moneda_norm
+            ORDER BY moneda_norm;
+moneda_norm          valor
+        CLF       57306989
+        CLP 27651861086541
+        EUR        2906299
+        USD      956248949
+        UTM       10576055
+
+## KPI: OC_Monto_Total_etiqueta
+source_view: dw_sem.v_fact_ordenes_compra_sem_v2
+SELECT
+                moneda_norm,
+                SUM(monto_total)::numeric(38,0)::text AS valor
+            FROM dw_sem.v_fact_ordenes_compra_sem_v2
+            GROUP BY moneda_norm
+            ORDER BY moneda_norm;
+moneda_norm          valor
+        CLF       57306989
+        CLP 27651861086541
+        EUR        2906299
+        USD      956248949
+        UTM       10576055
+
+## KPI: OC_Monto_Total_fecha_aceptacion_valida
+source_view: dw_sem.v_fact_ordenes_compra_sem_v2
+SELECT
+                moneda_norm,
+                SUM(monto_total)::numeric(38,0)::text AS valor
+            FROM dw_sem.v_fact_ordenes_compra_sem_v2
+            WHERE fecha_aceptacion_sk IS NOT NULL
+            GROUP BY moneda_norm
+            ORDER BY moneda_norm;
+moneda_norm          valor
+        CLF       33137707
+        CLP 24497269082853
+        EUR        2882762
+        USD      745919455
+        UTM        9754498

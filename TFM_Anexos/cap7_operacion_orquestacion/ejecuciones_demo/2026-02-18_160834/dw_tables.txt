@@ -1,0 +1,34 @@
+               List of relations
+ Schema |      Name       | Type  |   Owner    
+--------+-----------------+-------+------------
+ public | licitaciones    | table | chile_user
+ public | stg_lic_2024_09 | table | chile_user
+ public | stg_lic_2024_10 | table | chile_user
+ public | stg_lic_2024_11 | table | chile_user
+ public | stg_lic_2024_12 | table | chile_user
+ public | stg_lic_2025_01 | table | chile_user
+ public | stg_lic_2025_02 | table | chile_user
+ public | stg_lic_2025_03 | table | chile_user
+ public | stg_lic_2025_04 | table | chile_user
+ public | stg_lic_2025_05 | table | chile_user
+ public | stg_lic_2025_06 | table | chile_user
+ public | stg_lic_2025_07 | table | chile_user
+ public | stg_lic_2025_08 | table | chile_user
+ public | stg_lic_2025_09 | table | chile_user
+ public | stg_lic_2025_10 | table | chile_user
+ public | stg_oc_2024_09  | table | chile_user
+ public | stg_oc_2024_10  | table | chile_user
+ public | stg_oc_2024_11  | table | chile_user
+ public | stg_oc_2024_12  | table | chile_user
+ public | stg_oc_2025_01  | table | chile_user
+ public | stg_oc_2025_02  | table | chile_user
+ public | stg_oc_2025_03  | table | chile_user
+ public | stg_oc_2025_04  | table | chile_user
+ public | stg_oc_2025_05  | table | chile_user
+ public | stg_oc_2025_06  | table | chile_user
+ public | stg_oc_2025_07  | table | chile_user
+ public | stg_oc_2025_08  | table | chile_user
+ public | stg_oc_2025_09  | table | chile_user
+ public | stg_oc_2025_10  | table | chile_user
+(29 rows)
+

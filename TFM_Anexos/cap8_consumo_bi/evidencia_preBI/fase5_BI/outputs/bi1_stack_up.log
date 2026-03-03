@@ -1,0 +1,53 @@
+
+== Levantando stack (build si hace falta) ==
+#1 [internal] load local bake definitions
+#1 reading from stdin 516B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 248B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 1.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 865B done
+#5 DONE 0.0s
+
+#6 [1/5] FROM docker.io/library/python:3.11-slim@sha256:5be45dbade29bebd6886af6b438fd7e0b4eb7b611f39ba62b430263f82de36d2
+#6 resolve docker.io/library/python:3.11-slim@sha256:5be45dbade29bebd6886af6b438fd7e0b4eb7b611f39ba62b430263f82de36d2 done
+#6 DONE 0.0s
+
+#7 [3/5] COPY requirements.txt .
+#7 CACHED
+
+#8 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+#8 CACHED
+
+#9 [2/5] WORKDIR /app
+#9 CACHED
+
+#10 [5/5] COPY . .
+#10 CACHED
+
+#11 exporting to image
+#11 exporting layers done
+#11 writing image sha256:a0492da10bf5708ef28086c0f292414816aee70298c8d8b5d7a8caca420790f8 done
+#11 naming to docker.io/library/tfm-etl done
+#11 DONE 0.0s
+
+#12 resolving provenance for metadata file
+#12 DONE 0.0s
+NAME             IMAGE                   COMMAND                  SERVICE    CREATED         STATUS                   PORTS
+tfm-chile-pg-1   postgres:15-alpine      "docker-entrypoint.s…"   chile-pg   22 hours ago    Up 6 minutes (healthy)   0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp
+tfm-etl-1        tfm-etl                 "python -u app.py"       etl        6 minutes ago   Up Less than a second    0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+tfm-pgadmin-1    dpage/pgadmin4:latest   "/entrypoint.sh"         pgadmin    22 hours ago    Up 6 minutes             443/tcp, 0.0.0.0:8082->80/tcp, [::]:8082->80/tcp
+--------------------------------------------------------------------------------------------------------------
+[INFO] Chequeo rápido de salud
+[WARN] ETL /health no OK (revisar logs con './02-tfm.sh logs')
+[OK]   Postgres pg_isready OK (host puerto 5433)

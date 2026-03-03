@@ -1,0 +1,214 @@
+n8n-db-1  | 
+n8n-db-1  | PostgreSQL Database directory appears to contain a database; Skipping initialization
+n8n-db-1  | 
+n8n-db-1  | 2025-12-18 04:12:17.093 UTC [1] LOG:  starting PostgreSQL 15.14 on x86_64-pc-linux-musl, compiled by gcc (Alpine 14.2.0) 14.2.0, 64-bit
+n8n-db-1  | 2025-12-18 04:12:17.093 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+n8n-db-1  | 2025-12-18 04:12:17.093 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+n8n-db-1  | 2025-12-18 04:12:17.095 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+n8n-db-1  | 2025-12-18 04:12:17.098 UTC [29] LOG:  database system was shut down at 2025-12-18 04:11:44 UTC
+n8n-db-1  | 2025-12-18 04:12:17.101 UTC [1] LOG:  database system is ready to accept connections
+n8n-1     | task: findCommand (import:workflow)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-db-1  | 2025-12-18 04:12:22.095 UTC [39] FATAL:  role "chile_user" does not exist
+n8n-db-1  | 2025-12-18 04:12:27.135 UTC [46] FATAL:  role "chile_user" does not exist
+n8n-db-1  | 2025-12-18 04:12:32.177 UTC [53] FATAL:  role "chile_user" does not exist
+n8n-db-1  | 2025-12-18 04:12:37.214 UTC [61] FATAL:  role "chile_user" does not exist
+n8n-db-1  | 2025-12-18 04:12:42.256 UTC [68] FATAL:  role "chile_user" does not exist
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (export:credentials)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (export:workflow)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (list:workflow)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (license:clear)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (license:info)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (mfa:disable)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (user-management:reset)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (update:workflow)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     |  ›   Error: command start not found
+n8n-1     | Invalid boolean value for N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: 
+n8n-1     | Invalid boolean value for N8N_RUNNERS_ENABLED: 
+n8n-1     | User settings loaded from: /home/node/.n8n/config
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (audit)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (Use `node --trace-warnings ...` to show where the warning was created)
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (base-command)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (execute-batch)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (execute)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (start)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (webhook)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (worker)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (db:revert)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (import:credentials)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (import:workflow)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (export:credentials)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (export:workflow)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (ldap:reset)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (list:workflow)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (license:clear)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (license:info)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (mfa:disable)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (update:workflow)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     | (node:7) Warning: TypeError
+n8n-1     | module: @oclif/core@4.0.7
+n8n-1     | task: findCommand (user-management:reset)
+n8n-1     | plugin: n8n
+n8n-1     | root: /usr/local/lib/node_modules/n8n
+n8n-1     | message: Cannot read properties of undefined (reading 'database')
+n8n-1     | See more details with DEBUG=*
+n8n-1     |  ›   Error: command start not found

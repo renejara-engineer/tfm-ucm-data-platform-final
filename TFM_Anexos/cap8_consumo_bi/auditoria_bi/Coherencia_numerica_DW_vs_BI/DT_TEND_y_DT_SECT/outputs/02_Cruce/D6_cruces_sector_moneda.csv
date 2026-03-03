@@ -1,0 +1,33 @@
+sector_lic,moneda_std,lic_total,lic_con_oc,pct_lic_con_oc
+(Sin sector),CLF,3,0,0.0
+(Sin sector),CLP,1547,166,10.73
+(Sin sector),USD,2,1,50.0
+FFAA,CLF,36,3,8.333
+FFAA,CLP,11202,1780,15.89
+FFAA,USD,334,51,15.269
+FFAA,UTM,1,0,0.0
+"Gob. Central, Universidades",CLF,437,13,2.975
+"Gob. Central, Universidades",CLP,20154,2230,11.065
+"Gob. Central, Universidades",EUR,10,0,0.0
+"Gob. Central, Universidades",USD,515,33,6.408
+"Gob. Central, Universidades",UTM,7,1,14.286
+Legislativo y judicial,CLF,383,1,0.261
+Legislativo y judicial,CLP,733,47,6.412
+Legislativo y judicial,USD,55,1,1.818
+Legislativo y judicial,UTM,4,0,0.0
+Municipalidades,CLF,429,15,3.497
+Municipalidades,CLP,58090,8598,14.801
+Municipalidades,USD,36,4,11.111
+Municipalidades,UTM,114,2,1.754
+Obras Públicas,CLF,294,0,0.0
+Obras Públicas,CLP,6385,494,7.737
+Obras Públicas,USD,34,0,0.0
+Otros,CLF,87,1,1.149
+Otros,CLP,4654,547,11.753
+Otros,USD,33,2,6.061
+Otros,UTM,2,0,0.0
+SINDATO,CLP,2,0,0.0
+Salud,CLF,55,0,0.0
+Salud,CLP,30451,1214,3.987
+Salud,USD,23,0,0.0
+Salud,UTM,7,0,0.0

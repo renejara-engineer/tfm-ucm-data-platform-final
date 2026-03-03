@@ -1,0 +1,68 @@
+User settings loaded from: /home/node/.n8n/config
+Initializing n8n process
+n8n ready on 0.0.0.0, port 5678
+Version: 1.78.1
+
+Editor is now accessible via:
+http://localhost:5678/
+Received SIGTERM. Shutting down...
+
+Stopping n8n...
+User settings loaded from: /home/node/.n8n/config
+Initializing n8n process
+n8n ready on 0.0.0.0, port 5678
+Version: 1.78.1
+
+Editor is now accessible via:
+http://localhost:5678/
+Could not find any entity of type "User" matching: {
+    "where": {
+        "role": "global:owner"
+    }
+}
+Received SIGTERM. Shutting down...
+
+Stopping n8n...
+User settings loaded from: /home/node/.n8n/config
+Initializing n8n process
+n8n ready on 0.0.0.0, port 5678
+Version: 1.78.1
+
+Editor is now accessible via:
+http://localhost:5678/
+Could not update the personal project's name
+Could not update the personal project's name
+Error: Could not update the personal project's name
+    at UserSubscriber.afterUpdate (/usr/local/lib/node_modules/n8n/dist/databases/subscribers/user-subscriber.js:44:43)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at SubjectExecutor.execute (/usr/local/lib/node_modules/n8n/node_modules/@n8n/typeorm/persistence/SubjectExecutor.js:123:17)
+    at EntityPersistExecutor.execute (/usr/local/lib/node_modules/n8n/node_modules/@n8n/typeorm/persistence/EntityPersistExecutor.js:140:21)
+    at OwnerController.setupOwner (/usr/local/lib/node_modules/n8n/dist/controllers/owner.controller.js:57:17)
+    at handler (/usr/local/lib/node_modules/n8n/dist/decorators/controller.registry.js:93:24)
+    at /usr/local/lib/node_modules/n8n/dist/response-helper.js:110:26
+
+Owner was set up successfully
+Received SIGTERM. Shutting down...
+
+Stopping n8n...
+User settings loaded from: /home/node/.n8n/config
+Initializing n8n process
+n8n ready on 0.0.0.0, port 5678
+Version: 1.78.1
+
+Editor is now accessible via:
+http://localhost:5678/
+Received SIGTERM. Shutting down...
+
+Stopping n8n...
+User settings loaded from: /home/node/.n8n/config
+Initializing n8n process
+n8n ready on 0.0.0.0, port 5678
+Version: 1.78.1
+
+Editor is now accessible via:
+http://localhost:5678/
+Owner was set up successfully
+User survey updated successfully
+Failed to renew license: renewal failed because current cert is not initialized

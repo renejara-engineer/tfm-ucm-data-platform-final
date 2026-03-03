@@ -1,0 +1,20 @@
+dashboard,kpi,medida_dax,moneda_norm,valor_sql,sql_text
+LIC,LIC Monto Adjudicado,SEM LIC Monto Adjudicado,CLP,469013106348277.00,"SELECT COALESCE(SUM(monto_adjudicado),0) FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = :moneda_norm;"
+LIC,LIC Monto Estimado,SEM LIC Monto Estimado,CLP,372308956536507.00,"SELECT COALESCE(SUM(monto_estimado_max),0)
+         FROM (
+           SELECT licitacion_sk, MAX(monto_estimado) AS monto_estimado_max
+           FROM dw_sem.v_fact_licitaciones_sem_v2
+           WHERE moneda_norm = :moneda_norm
+             AND flag_monto_estimado_anom = 0
+             AND flag_moneda_missing = 0
+             AND flag_moneda_unknown = 0
+           GROUP BY licitacion_sk
+         ) t;"
+LIC,LIC N° Licitaciones,SEM LIC N° Licitaciones,CLP,4620401,SELECT COUNT(*) FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = :moneda_norm;
+LIC,LIC Productos ONU Distintos,SEM LIC Productos ONU Distintos,CLP,8304,SELECT COUNT(DISTINCT producto_onu_sk) FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = :moneda_norm;
+LIC,LIC Proveedores Distintos,SEM LIC Proveedores Distintos,CLP,19425,SELECT COUNT(DISTINCT proveedor_sk) FROM dw_sem.v_fact_licitaciones_sem_v2 WHERE moneda_norm = :moneda_norm;
+OC,OC Monto (moneda única),OC Monto (moneda unica),CLP,27651861086540.86,"SELECT COALESCE(SUM(monto_total),0) FROM dw_sem.v_fact_ordenes_compra_sem_v2 WHERE moneda_norm = :moneda_norm;"
+OC,OC N° Ordenes Compra,OC #,CLP,4531314,SELECT COUNT(*) FROM dw_sem.v_fact_ordenes_compra_sem_v2 WHERE moneda_norm = :moneda_norm;
+OC,OC Organismos Distintos,OC Organismos Distintos,CLP,845,SELECT COUNT(DISTINCT organismo_sk) FROM dw_sem.v_fact_ordenes_compra_sem_v2 WHERE moneda_norm = :moneda_norm;
+OC,OC Productos ONU Distintos,OC Productos ONU Distintos,CLP,9716,SELECT COUNT(DISTINCT producto_onu_sk) FROM dw_sem.v_fact_ordenes_compra_sem_v2 WHERE moneda_norm = :moneda_norm;
+OC,OC Proveedores Distintos,OC Proveedores,CLP,37550,SELECT COUNT(DISTINCT proveedor_sk) FROM dw_sem.v_fact_ordenes_compra_sem_v2 WHERE moneda_norm = :moneda_norm;

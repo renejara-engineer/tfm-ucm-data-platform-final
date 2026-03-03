@@ -1,0 +1,35 @@
+kpi,moneda_val,valor_pbi
+LIC_Conteo_Global,,4633081
+LIC_Proveedores_Distintos_Global,,19518
+LIC_Productos_ONU_Distintos_Global,,8319
+
+LIC_Conteo,CLP,4620401
+LIC_Monto_Estimado,CLP,372308956536507
+LIC_Monto_Adjudicado,CLP,469013106348277
+LIC_Proveedores_Distintos,CLP,19425
+LIC_Productos_ONU_Distintos,CLP,8304
+
+LIC_Conteo,USD,7329
+LIC_Monto_Estimado,USD,587603417150
+LIC_Monto_Adjudicado,USD,16339844044
+LIC_Proveedores_Distintos,USD,567
+LIC_Productos_ONU_Distintos,USD,250
+
+LIC_Conteo,EUR,0
+LIC_Monto_Estimado,EUR,0
+LIC_Monto_Adjudicado,EUR,0
+LIC_Proveedores_Distintos,EUR,0
+LIC_Productos_ONU_Distintos,EUR,0
+
+LIC_Conteo,CLF,4761
+LIC_Monto_Estimado,CLF,50832973328
+LIC_Monto_Adjudicado,CLF,111901349839
+LIC_Proveedores_Distintos,CLF,1033
+LIC_Productos_ONU_Distintos,CLF,322
+
+LIC_Conteo,Moneda revisar,590
+LIC_Monto_Estimado,Moneda revisar,0
+LIC_Monto_Adjudicado,Moneda revisar,1645426721
+LIC_Proveedores_Distintos,Moneda revisar,197
+LIC_Productos_ONU_Distintos,Moneda revisar,76
+

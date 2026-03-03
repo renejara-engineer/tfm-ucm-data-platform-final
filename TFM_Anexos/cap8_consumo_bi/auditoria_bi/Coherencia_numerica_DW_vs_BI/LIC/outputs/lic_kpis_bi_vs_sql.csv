@@ -1,0 +1,29 @@
+kpi,moneda_val,valor_sql,valor_pbi,diff_abs,diff_pct,estado
+LIC_Conteo_Global,NONE,4633081.0,,,,NO_APLICA
+LIC_Proveedores_Distintos_Global,NONE,19518.0,,,,NO_APLICA
+LIC_Productos_ONU_Distintos_Global,NONE,8319.0,,,,NO_APLICA
+LIC_Conteo,CLP,4620401.0,4620401.0,0.0,0.0,OK
+LIC_Monto_Estimado,CLP,372308956536507.0,372308956536507.0,0.0,0.0,OK
+LIC_Monto_Adjudicado,CLP,469013106348277.0,469013106348277.0,0.0,0.0,OK
+LIC_Proveedores_Distintos,CLP,19425.0,19425.0,0.0,0.0,OK
+LIC_Productos_ONU_Distintos,CLP,8304.0,8304.0,0.0,0.0,OK
+LIC_Conteo,USD,7329.0,7329.0,0.0,0.0,OK
+LIC_Monto_Estimado,USD,587603417150.0,587603417150.0,0.0,0.0,OK
+LIC_Monto_Adjudicado,USD,16339844044.0,16339844044.0,0.0,0.0,OK
+LIC_Proveedores_Distintos,USD,567.0,567.0,0.0,0.0,OK
+LIC_Productos_ONU_Distintos,USD,250.0,250.0,0.0,0.0,OK
+LIC_Conteo,EUR,0.0,0.0,0.0,0.0,OK
+LIC_Monto_Estimado,EUR,0.0,0.0,0.0,0.0,OK
+LIC_Monto_Adjudicado,EUR,0.0,0.0,0.0,0.0,OK
+LIC_Proveedores_Distintos,EUR,0.0,0.0,0.0,0.0,OK
+LIC_Productos_ONU_Distintos,EUR,0.0,0.0,0.0,0.0,OK
+LIC_Conteo,CLF,4761.0,4761.0,0.0,0.0,OK
+LIC_Monto_Estimado,CLF,50832973328.0,50832973328.0,0.0,0.0,OK
+LIC_Monto_Adjudicado,CLF,111901349839.0,111901349839.0,0.0,0.0,OK
+LIC_Proveedores_Distintos,CLF,1033.0,1033.0,0.0,0.0,OK
+LIC_Productos_ONU_Distintos,CLF,322.0,322.0,0.0,0.0,OK
+LIC_Conteo,MONEDA REVISAR,590.0,590.0,0.0,0.0,OK
+LIC_Monto_Estimado,MONEDA REVISAR,0.0,0.0,0.0,0.0,OK
+LIC_Monto_Adjudicado,MONEDA REVISAR,1645426721.0,1645426721.0,0.0,0.0,OK
+LIC_Proveedores_Distintos,MONEDA REVISAR,197.0,197.0,0.0,0.0,OK
+LIC_Productos_ONU_Distintos,MONEDA REVISAR,76.0,76.0,0.0,0.0,OK

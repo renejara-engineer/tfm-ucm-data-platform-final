@@ -1,0 +1,5 @@
+NAME             IMAGE                   COMMAND                  SERVICE    CREATED       STATUS                 PORTS
+tfm-chile-pg-1   postgres:15-alpine      "docker-entrypoint.s…"   chile-pg   9 hours ago   Up 9 hours (healthy)   0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp
+tfm-n8n-1        tfm-n8n:local           "tini -- /docker-ent…"   n8n        9 hours ago   Up 9 hours             0.0.0.0:5678->5678/tcp, [::]:5678->5678/tcp
+tfm-n8n-db-1     postgres:15-alpine      "docker-entrypoint.s…"   n8n-db     9 hours ago   Up 9 hours (healthy)   5432/tcp
+tfm-pgadmin-1    dpage/pgadmin4:latest   "/entrypoint.sh"         pgadmin    9 hours ago   Up 9 hours             443/tcp, 0.0.0.0:8082->80/tcp, [::]:8082->80/tcp

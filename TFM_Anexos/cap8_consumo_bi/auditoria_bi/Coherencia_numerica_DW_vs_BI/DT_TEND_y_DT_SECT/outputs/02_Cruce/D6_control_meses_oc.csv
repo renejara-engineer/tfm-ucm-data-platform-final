@@ -1,0 +1,15 @@
+periodo,tabla,incluida,tiene_codigo,tiene_codigolicitacion,tiene_tipomonedaoc,tiene_monedaitem,tiene_sector,motivo_exclusion
+2024-09,stg_oc_2024_09,True,True,True,True,True,True,
+2024-10,stg_oc_2024_10,True,True,True,True,True,True,
+2024-11,stg_oc_2024_11,True,True,True,True,True,True,
+2024-12,stg_oc_2024_12,True,True,True,True,True,True,
+2025-01,stg_oc_2025_01,True,True,True,True,True,True,
+2025-02,stg_oc_2025_02,True,True,True,True,True,True,
+2025-03,stg_oc_2025_03,False,False,False,False,False,False,schema_invalido_minimo
+2025-04,stg_oc_2025_04,True,True,True,True,True,True,
+2025-05,stg_oc_2025_05,True,True,True,True,True,True,
+2025-06,stg_oc_2025_06,True,True,True,True,True,True,
+2025-07,stg_oc_2025_07,True,True,True,True,True,True,
+2025-08,stg_oc_2025_08,True,True,True,True,True,True,
+2025-09,stg_oc_2025_09,True,True,True,True,True,True,
+2025-10,stg_oc_2025_10,True,True,True,True,True,True,

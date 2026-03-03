@@ -1,0 +1,35 @@
+                                       Table "dw.fact_licitaciones"
+        Column        |            Type             | Collation | Nullable |           Default            
+----------------------+-----------------------------+-----------+----------+------------------------------
+ licitacion_sk        | bigint                      |           | not null | generated always as identity
+ licitacion_bk        | text                        |           | not null | 
+ fecha_publicacion_sk | integer                     |           |          | 
+ fecha_cierre_sk      | integer                     |           |          | 
+ organismo_sk         | integer                     |           |          | 
+ proveedor_sk         | integer                     |           |          | 
+ producto_onu_sk      | integer                     |           |          | 
+ monto_estimado       | numeric(18,2)               |           |          | 
+ monto_adjudicado     | numeric(18,2)               |           |          | 
+ cantidad_oferentes   | integer                     |           |          | 
+ cantidad_items       | integer                     |           |          | 
+ estado_licitacion    | text                        |           |          | 
+ tipo_adquisicion     | text                        |           |          | 
+ moneda               | text                        |           |          | 
+ periodo              | text                        |           | not null | 
+ source_file          | text                        |           |          | 
+ ingested_at          | timestamp without time zone |           | not null | now()
+Indexes:
+    "fact_licitaciones_pkey" PRIMARY KEY, btree (licitacion_sk)
+    "ix_fact_lic_fpub" btree (fecha_publicacion_sk)
+    "ix_fact_lic_org" btree (organismo_sk)
+    "ix_fact_lic_periodo" btree (periodo)
+    "ix_fact_lic_prod" btree (producto_onu_sk)
+    "ix_fact_lic_prov" btree (proveedor_sk)
+    "ux_fact_lic_bk_periodo" UNIQUE, btree (licitacion_bk, periodo)
+Foreign-key constraints:
+    "fk_fact_lic_fecha_cierre" FOREIGN KEY (fecha_cierre_sk) REFERENCES dw.dim_fecha(fecha_sk)
+    "fk_fact_lic_fecha_publicacion" FOREIGN KEY (fecha_publicacion_sk) REFERENCES dw.dim_fecha(fecha_sk)
+    "fk_fact_lic_organismo" FOREIGN KEY (organismo_sk) REFERENCES dw.dim_organismo(organismo_sk)
+    "fk_fact_lic_producto" FOREIGN KEY (producto_onu_sk) REFERENCES dw.dim_producto_onu(producto_onu_sk)
+    "fk_fact_lic_proveedor" FOREIGN KEY (proveedor_sk) REFERENCES dw.dim_proveedor(proveedor_sk)
+

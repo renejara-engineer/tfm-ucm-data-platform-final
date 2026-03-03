@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Content-Length: 15
+ETag: W/"f-VaSQ4oDUiZblZNAEkkN+sX+q3Sg"
+Date: Sun, 18 Jan 2026 02:01:58 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"status":"ok"}
